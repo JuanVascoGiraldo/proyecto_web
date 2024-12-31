@@ -11,7 +11,6 @@
         private int $is_acepted;
         private string $url_payment_document;
         private string $periodo;
-        private DateManage $date_manage = new DateManage();
 
         public function __construct(
             string $id, int $casillero, int $status,
@@ -66,25 +65,25 @@
         public function set_casillero(int $casillero): void
         {
             $this->casillero = $casillero;
-            $this->updated_at = $this->date_manage->getCurrentUTC();
+            $this->updated_at = getCurrentUTC();
         }
 
         public function set_status(int $status): void
         {
             $this->status = $status;
-            $this->updated_at = $this->date_manage->getCurrentUTC();
+            $this->updated_at = getCurrentUTC();
         }
 
         public function set_is_acepted(int $is_acepted): void
         {
             $this->is_acepted = $is_acepted;
-            $this->updated_at = $this->date_manage->getCurrentUTC();
+            $this->updated_at = getCurrentUTC();
         }
 
         public function set_url_payment_document(string $url_payment_document): void
         {
             $this->url_payment_document = $url_payment_document;
-            $this->updated_at = $this->date_manage->getCurrentUTC();
+            $this->updated_at = getCurrentUTC();
         }
 
     }

@@ -1,11 +1,10 @@
 <?php
-    class CodeGenerator {
         /**
          * Genera un código alfanumérico de 6 caracteres.
          *
          * @return string Código alfanumérico de 6 caracteres.
          */
-        public static function generateAlphanumericCode(): string {
+        function generateAlphanumericCode(): string {
             $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             $code = '';
             $length = 6;
@@ -17,5 +16,4 @@
 
             return $code;
         }
-    }
 ?>

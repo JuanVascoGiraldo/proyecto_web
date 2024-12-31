@@ -16,8 +16,6 @@
 
         private array $sessions = [];
 
-        private DateManage $dateManage = new DateManage();
-
         public function __construct($id, $username, $password, $email, $role, $status, $createdAt, $updatedAt) {
             $this->id = $id;
             $this->username = $username;
@@ -67,17 +65,17 @@
 
         public function setEmail($email) {
             $this->email = $email;
-            $this->updatedAt = $this->dateManage->getCurrentUTC();
+            $this->updatedAt = getCurrentUTC();
         }
 
         public function setRole($role) {
             $this->role = $role;
-            $this->updatedAt = $this->dateManage->getCurrentUTC();
+            $this->updatedAt = getCurrentUTC();
         }
 
         public function setStatus($status) {
             $this->status = $status;
-            $this->updatedAt = $this->dateManage->getCurrentUTC();
+            $this->updatedAt = getCurrentUTC();
         }
 
         public function get_student(): ?Student {
@@ -103,7 +101,7 @@
          * @param string $session Sesión a agregar
         */
         public function add_session(Session $session) {
-            $time = $this->dateManage->getCurrentUTC();
+            $time = getCurrentUTC();
             foreach ($this->sessions as $s) {
                 $s->setExpirationDate($time);
             }

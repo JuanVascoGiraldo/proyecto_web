@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700&display=swap');
+* {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+}
+
+:root {
+    --primary-color: #FDF0D5;   /* Color principal */
+    --secondary-color: #003049;  /* Color secundario */
+    --tertiary-color: #780000;   /* Color terciario */
+    --quaternary-color: #669BBC; /* Color cuaternario */
+    --quinary-color: #C1121F;    /* Color quinario */
+}
+
+body {
+    background-color: var(--primary-color);  /* Fondo de color quinario (#C1121F) */
+}

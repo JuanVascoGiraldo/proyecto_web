@@ -46,7 +46,8 @@ class EmailService {
             $this->mailer->addAddress($toEmail, $toName);
 
             $this->mailer->isHTML(true);
-            $this->mailer->Subject = $subject;
+            $this->mailer->CharSet = 'UTF-8';
+            $this->mailer->Subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
             $this->mailer->Body = $body;
 
             // Enviar correo

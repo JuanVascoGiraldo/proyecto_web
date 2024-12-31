@@ -61,7 +61,7 @@
         public function getCurp(){
             return $this->curp;
         }
-        public function getcredencial_url(){
+        public function getCredencial_url(){
             return $this->credencial_url;
         }
 

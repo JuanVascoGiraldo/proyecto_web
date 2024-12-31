@@ -8,13 +8,18 @@
 
         private DateTime $expiration_date;
 
+        private int $attemps;
+
         public function __construct(
-            string $id, string $code, string $email, DateTime $expiration_date
+            string $id, string $code,
+            string $email, DateTime $expiration_date,
+            int $attemps = 0
         ){
             $this->id = $id;
             $this->code = $code;
             $this->email = $email;
             $this->expiration_date = $expiration_date;
+            $this->attemps = $attemps;
         }
 
         public function getId(): string
@@ -33,6 +38,17 @@
         }
 
 
+        public function getAttemps(): int
+        {
+            return $this->attemps;
+        }
+
+        public function setAttemps(int $attemps): void
+        {
+            $this->attemps = $attemps;
+        }
+
+
         public function getExpirationDate(): DateTime
         {
             return $this->expiration_date;
@@ -46,7 +62,12 @@
         */
         public function is_valid_code(string $code): bool
         {
-            return $this->code === $code;
+            $is_valid_code = $this->code === $code;
+            if ($is_valid_code) {
+                return true;
+            }
+            $this->attemps += 1;
+            return false;
         }
 
     }

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina de Inicio</title>
+    <link rel="icon" href="imgs/iconoprincipal.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/header_footer.css">
+    <link rel="stylesheet" href="css/inicio.css">
+    <script src="js/redieccionar.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex" href="#">
+                    <img src="imgs/ipn_logo.png" alt="logo Escom" title="logo ESCOM" class="d-inline-block"  onclick="location.href='https://www.ipn.mx';">
+                    <span class="d-flex">&nbsp;&nbsp;Sistema de Gestión de Casilleros ESCOM (SIGCA)&nbsp;&nbsp;</span>
+                    <img src="imgs/escom_logo.png" alt="logo Escom" title="logo ESCOM" class="d-inline-block"  onclick="location.href='https://www.escom.ipn.mx';">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="send_to_index()">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" onclick="send_to_register()">Registro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="send_to_acuse()">Acuse</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="send_to_admin()">Admin</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section style="width: 80%; margin: auto;" id="noticias">
+            <!-- sliders -->
+
+            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                <!-- Indicadores del carousel -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExample" data-bs-slide-to="2" class="fondo" aria-label="Slide 3"></button>
+                </div>
+        
+                <!-- Los elementos del carousel -->
+                <div class="carousel-inner">
+                    <!-- Primer Item con Card -->
+                    <div class="carousel-item active">
+                        <div class="card">
+                            <img src="./imgs/img1-carousel.png" class="card-img-top" alt="Imagen 1" style="height: 18em;">
+                            <div class="card-body">
+                                <h5 class="card-title">Convocatoria</h5>
+                                <p class="card-text">Convocatoria para la beca de excelencia telmex</p>
+                                <a href="https://www.escom.ipn.mx/docs/slider/BecaTelcel-Telmex25-1.pdf" target="_blank" class="btn btn-primary">Ver más</a>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+        
+                    <!-- Segundo Item con Card -->
+                    <div class="carousel-item">
+                        <div class="card">
+                            <img src="./imgs/img2-carousel.png" class="card-i2mg-top" alt="Imagen 2" style="height: 18em;">
+                            <div class="card-body">
+                                <h5 class="card-title">Código de ética</h5>
+                                <p class="card-text">Conoce el coodigo de etica del instituto</p>
+                                <a href="https://www.escom.ipn.mx/docs/slider/Codigo-IPN-2023.pdf" target="_blank" class="btn btn-primary">Ver más</a>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+        
+                    <!-- Tercer Item con Card -->
+                    <div class="carousel-item">
+                        <div class="card">
+                            <img src="./imgs/img3-carousel.png" class="card-img-top" alt="Imagen 3" style="height: 17em;">
+                            <div class="card-body">
+                                <h5 class="card-title">Convocatoria para el Cenlex ESCOM</h5>
+                                <p class="card-text">CELEX ESCOM te invita a sus cursos. Registro ingreso a CELEX ESCOM por examen de colocación: </p>
+                                <a href="https://www.facebook.com/share/p/JU6AjFL4XA3Q8DxN/" target="_blank" class="btn btn-primary">Ver más</a>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Controles para ir a la siguiente/previa imagen -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+
+
+            <!-- fin del sliders -->
+        </section>
+        
+
+        <section id="nosotros" style="width: 80%; margin: auto;">
+
+            <div class="container">
+                <h2 class="text-center mb-4">Nosotros</h2>
+                <!-- Card 1 -->
+                <div class="row justify-content-between">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="imgs/gato_imagen3.jpeg" class="img-fluid rounded-start" alt="Imagen Erick">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                <h5 class="card-title">Erick Julián Pérez Ortiz</h5>
+                                <p class="card-text">Estudiante de ESCOM, me gusta jugar videojuegos y dibujar en mis tiempos libres, espero aprender muchas cosas nuevas sobre el desarrollo web ya que es algo a lo que me quiero dedicar. He tenido pequeñas experiencias en lo de web pero soy conciente del largo camino que me falta por recorrer.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="imgs/gato_imagen5.jpg" class="img-fluid rounded-start" alt="Imagen alexis" title="Imagen alexis">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                <h5 class="card-title">Alexis Pozos González</h5>
+                                <p class="card-text">Estudiante de ESCOM. Media escuela me conoce, me gusta ir al gym, hacer fiestas con amigos, comer gomitas y tengo una pasión al liderar eventos que me interesan y la programación en web. Tambien me gusta el futbol (Arriba las chivas). No te tenido experiencia con el desarrollo web pero en este proyecto me ha ayudado.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-between">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="imgs/gato_imagen4.jpeg" class="img-fluid rounded-start" alt="Imagen Coria" title="Imagen Coria">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                <h5 class="card-title">Axel Yahir López Coria</h5>
+                                <p class="card-text">Estudiante de ESCOM, mis amigos me dicen Coria. Me gusta escuchar música, ir al gym, tocar la guitarra y jugar videojuegos. Apasionado por los circuitos y la programación. Haciendo lo mejor posible para aportar al equipo</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="imgs/gato_imagen2.jpg" class="img-fluid rounded-start" alt="Imagen Juan" title="Imagen Juan">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                <h5 class="card-title">Juan Esteban Vasco Giraldo</h5>
+                                <p class="card-text">Hola ya cuento con experiencia profesional en desarrollo backend, usando python, java y nodejs. Esta es mi primera vez usando php, espero que la experiencia aprendida en otros lenguajes le pueda ofrecer al equipo una guia para la implementación </p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </section>
+        
+
+    </main>
+    <footer class="text-center text-lg-start">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5>Acerca del Proyecto</h5>
+                    <p>Este sistema de gestión de casilleros está diseñado para mejorar la experiencia de los estudiantes en la ESCOM, facilitando la gestión de los casilleros en la universidad. Este proyecto se realizo para la materia de Tecnologias para el desarrollo web</p>
+                    <p>Desarrollado por: El equipo de SIGCA </p>
+                </div>
+                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                    <h5>Contacto</h5>
+                    <p>Si tienes alguna pregunta o inquietud, no dudes en ponerte en contacto con nosotros:</p>
+                    <p>Email: contacto@escom.com</p>
+                    <p>Teléfono: +52 55 1234 5678</p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+            &#169;​ 2024 Equipo 2
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

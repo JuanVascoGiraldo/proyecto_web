@@ -1,0 +1,26 @@
+
+section{
+    margin: auto;
+    width: 50%;
+    border-radius: 20px;
+    background-color: var(--secondary-color);
+    padding: 2% 5%;
+    margin-bottom: 4%;
+    margin-top: 3%;
+}
+
+section img{
+    width: 30%;
+}
+
+section input{
+    width: 60%;
+    margin: auto;
+    border-radius: 10px;
+    color: black;
+}
+
+section h2{
+    color: white;
+}
+

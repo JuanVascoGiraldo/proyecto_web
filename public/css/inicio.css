@@ -1,0 +1,94 @@
+.carousel .card{
+    width: 60%;
+    margin: 0 auto;
+    background-color: var(--quaternary-color);
+    color: white;
+    max-height: 29em;
+}
+
+.carousel .card-img-top {
+    object-fit: cover;
+}
+
+.carousel-item{
+    width: 100%;
+    background-color: var(--secondary-color);
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: black;
+}
+
+
+/* Cambiar el color de los indicadores activos a negro */
+.carousel-indicators .active {
+    background-color: black;
+}
+
+.carousel-caption{
+    background-color: var(--quinary-color);
+
+}
+
+#nosotros .card{
+    width: 48%;
+    border-radius: 30px;
+    box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.2);
+    padding: auto;
+}
+
+#nosotros img{
+    height: 100%;
+    box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.2);
+    max-height: 250px;
+}
+
+#nosotros .card .col-md-4{
+    height: 80%;
+    padding: 10% 0 0 0;
+}
+
+#nosotros .card-text{
+    font-size:medium;
+}
+
+
+@media screen and (max-width: 1000px){
+    #nosotros .card{
+        width: 80%;
+        margin: auto;
+    }
+    #nosotros .card .col-md-4{
+        width: 100%;
+        height: 40%;
+    }
+    #nosotros .card .col-md-8{
+        width: 100%;
+    }
+    #nosotros .row{
+        display: block;
+    }
+}
+
+@media screen and (max-width: 800px){
+    #nosotros .card .col-md-4{
+        width: 100%;
+        height: 10%;
+    }
+    #nosotros .card .col-md-8{
+        width: 100%;
+    }
+
+    .carousel .card{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 500px){
+    #nosotros .card{
+        width: 100%;
+    }
+    #nosotros .card .col-md-4{
+        height: 30%;
+    }
+}

@@ -1,0 +1,82 @@
+
+
+a>img{
+    width: 5%;
+    object-fit: cover;
+}
+
+a>span{
+    font-size: 0.7em;
+    align-items: center;
+    color: white;
+}
+
+.nav-link{
+    color: white;
+}
+
+.nav-link:visited{
+    color: white;
+}
+
+.nav-link:hover{
+    color: var(--tertiary-color);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.navbar-toggler {
+    border-color: rgb(255,255,255);
+} 
+
+.nav-item{
+    cursor: pointer;
+}
+
+header>nav{
+    background-color: var(--secondary-color);
+}
+
+header, main {
+    display: block;
+    width: 100%;
+    clear: both;
+    box-sizing: border-box;
+}
+
+a>span{
+    font-size: 0.8em;
+}
+
+main{
+    margin-top: 20px;
+}
+
+footer{
+    background-color: var(--tertiary-color);
+    color: white;
+}
+
+@media screen and (max-width: 991px){
+    .container-fluid>a{
+        justify-content: space-between;
+    }
+    
+}
+
+@media screen and (max-width: 500px){
+    a>img{
+        width: 10%;
+    }
+    a>span{
+        font-size: 0.5em;
+    }
+}
+
+
+.navbar-toggler{
+    margin: auto;
+}
+

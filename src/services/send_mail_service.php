@@ -1,6 +1,6 @@
 <?php
 
-    require_once './email.php';
+    require_once __DIR__.'./email.php';
 
     class SendMailService extends EmailService{
 
