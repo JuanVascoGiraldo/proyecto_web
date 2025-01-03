@@ -62,13 +62,17 @@
         */
         public function is_valid_code(string $code): bool
         {
-            $is_valid_code = $this->code === $code;
-            if ($is_valid_code) {
-                return true;
-            }
-            $this->attemps += 1;
-            return false;
+            return $this->code === $code;
         }
+
+        /**
+         * Incrementa los intentos de verificación.
+         */
+        public function increase_attempts(): void
+        {
+            $this->attemps += 1;
+        }
+
 
     }
 

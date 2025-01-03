@@ -3,20 +3,24 @@
     require_once __DIR__ .'/student.php';
     require_once __DIR__ .'/session.php';
     class User {
-        private $id;
-        private $username;
-        private $password;
-        private $role;
-        private $email;
-        private $status;
-        private $createdAt;
-        private $updatedAt;
+        private string $id;
+        private string $username;
+        private string $password;
+        private int $role;
+        private string $email;
+        private int $status;
+        private DateTime $createdAt;
+        private DateTime $updatedAt;
 
         private ?Student $student = null;
 
         private array $sessions = [];
 
-        public function __construct($id, $username, $password, $email, $role, $status, $createdAt, $updatedAt) {
+        public function __construct(
+            string $id, string $username, string $password,
+            string $email, int $role, int $status,
+            DateTime $createdAt, DateTime $updatedAt
+        ) {
             $this->id = $id;
             $this->username = $username;
             $this->password = $password;
@@ -27,53 +31,53 @@
             $this->updatedAt = $updatedAt;
         }
 
-        public function getId() {
+        public function getId(): string {
             return $this->id;
         }
 
-        public function getUsername() {
+        public function getUsername(): string {
             return $this->username;
         }
 
-        public function getPassword() {
+        public function getPassword(): string {
             return $this->password;
         }
 
-        public function getEmail() {
+        public function getEmail(): string {
             return $this->email;
         }
 
-        public function getRole() {
+        public function getRole(): int {
             return $this->role;
         }
 
-        public function getStatus() {
+        public function getStatus(): int {
             return $this->status;
         }
 
-        public function getCreatedAt() {
+        public function getCreatedAt(): DateTime {
             return $this->createdAt;
         }
 
-        public function getUpdatedAt() {
+        public function getUpdatedAt(): DateTime {
             return $this->updatedAt;
         }
 
-        public function setPassword($password) {
+        public function setPassword(string $password): void {
             $this->password = $password;
         }
 
-        public function setEmail($email) {
+        public function setEmail(string $email): void {
             $this->email = $email;
             $this->updatedAt = getCurrentUTC();
         }
 
-        public function setRole($role) {
+        public function setRole(int $role): void {
             $this->role = $role;
             $this->updatedAt = getCurrentUTC();
         }
 
-        public function setStatus($status) {
+        public function setStatus(int $status): void {
             $this->status = $status;
             $this->updatedAt = getCurrentUTC();
         }
@@ -90,7 +94,7 @@
             return $this->sessions;
         }
 
-        public function set_sessions(array $sessions) {
+        public function set_sessions(array $sessions): void {
             $this->sessions = $sessions;
         }
 
@@ -108,6 +112,21 @@
             $this->sessions[] = $session;
         }
 
+        /**
+         * Verifica si la contraseña es correcta.
+         * @param string $password Contraseña a verificar.
+         * @return bool Verdadero si la contraseña es correcta.
+         */
+        public function checkPassword(string $password): bool {
+            return password_verify($password, $this->password);
+        }
 
+        /**
+         * Verifica si el usuario es administrador.
+         * @return bool Verdadero si el usuario es administrador.
+         */
+        public function is_admin(): bool {
+            return $this->role === 1;
+        }
     }
 ?>

@@ -1,0 +1,37 @@
+
+.main-estudiante {
+    margin-top: 20px;
+    background-color: white;
+    width: 80%;
+    margin: auto;
+    border-radius: 20px;
+    border: 2px solid #f1f1f1;
+}
+
+#tableBody tr{
+    cursor: pointer;
+}
+
+#tableBody tr:hover a {
+    color: white;
+}
+
+.aprobado {
+    color: green;
+}
+
+.rechazado{
+    color: red;
+}
+
+.pendiente {
+    color: orange;
+}
+
+.caducado {
+    color: grey;
+}
+
+.terminado {
+    color: rgb(38, 0, 255);
+}

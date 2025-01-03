@@ -13,7 +13,24 @@ const regex_code_verification = /^[A-Z0-9]{6}$/;
 function mostrarnucas(show) {
     const lockerField = document.getElementById('lockerField');
     lockerField.style.display = show ? 'block' : 'none';
+    if (!show) {
+        document.getElementById('numeroLocker').value = '';
+    }
 }
+
+let loading = "<script>"+
+    "Swal.fire({"+
+            "title: 'Datos enviados',"+
+            "html: 'Los datos fueron enviados espere un momento',"+
+            "timer: 10000,"+
+            "allowOutsideClick: false,"+
+            "allowEscapeKey: false,"+
+            "timerProgressBar: true,"+
+            "didOpen: () => {"+
+            "Swal.showLoading()"+
+            "}"+
+        "})"+
+    "</script>";
 
 
 const requirements = {
@@ -277,47 +294,6 @@ function verify_verification_code() {
     return true;
 }
 
-$(document).ready(function() {
-    $('#send_verifcation_code').click(() => {
-        // URL del endpoint
-        const endpointUrl = 'http://localhost/Proyecto_Final/src/controllers/send_mail.php';
-        const params = {email: $('#correo').val()}
-        const headers = {
-            'Content-Type': 'application/json',
-        };
-        console.log(params);
-        $.ajax({
-            url: endpointUrl,
-            method: 'POST',
-            headers: headers,
-            data: JSON.stringify(params), // Convierte los datos a JSON
-            success: function(data) {
-                if(!data.success){
-                    Swal.fire({
-                        icon: "error",
-                        title: "Código de verificación no enviado",
-                        text: data.message
-                    });
-                }else{
-                    Swal.fire({
-                        icon: "success",
-                        title: "Código de verificación enviado",
-                        text: "Se ha enviado un código de verificación a tu correo institucional",
-                    });
-                }
-                
-            },
-            error: function() {
-                Swal.fire({
-                    icon: "error",
-                    title: "No se pudo enviar la información",
-                    text: "Inténtalo de nuevo o contacta a soporte",
-                });
-            }
-        });
-    });
-});
-
 function validateForm() {
     if (!validar_password_form()) return;
 
@@ -443,23 +419,22 @@ function showValues(
         cancelButtonText: "Regresar y Cambiar"
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire({
-                title: "Información guardada",
-                text: "Tu información ha sido guardada correctamente",
-                icon: "success"
-            }).then(() => {
-                // setTimeout(() => {
-                //     document.getElementById('form').submit();
-                // }, 300);
-                send_to_acuse();
-            });
+            setTimeout(() => {
+                let form = document.getElementById('registerForm');
+                const event = new Event("submit", { bubbles: true, cancelable: true });
+                form.dispatchEvent(event);
+            }, 300);
         }
     });
 }
 
+function reload_capcha() {
+    grecaptcha.reset();
+}
+
 
 function reset_form() {
-    document.getElementById('form').reset();
+    document.getElementById('registerForm').reset();
     mostrarnucas(false);
 }
 
@@ -475,4 +450,95 @@ function verify_captha() {
     });
     return false;
 }
+
+
+$(document).ready(function() {
+    // Envio del codigo de verificacion
+    $('#send_verifcation_code').click(() => {
+        const endpointUrl = 'http://localhost/Proyecto_Final/src/controllers/send_mail.php';
+        const params = {email: $('#correo').val()}
+        const headers = {
+            'Content-Type': 'application/json',
+        };
+        $("#loader").html(loading);
+        $.ajax({
+            url: endpointUrl,
+            method: 'POST',
+            headers: headers,
+            data: JSON.stringify(params), // Convierte los datos a JSON
+            success: (data) =>{
+                if(!data.success){
+                    $("#loader").html("");
+                    Swal.fire({
+                        icon: "error",
+                        title: "Código de verificación no enviado",
+                        text: data.message
+                    });
+                }else{
+                    $("#loader").html("");
+                    Swal.fire({
+                        icon: "success",
+                        title: "Código de verificación enviado",
+                        text: "Se ha enviado un código de verificación a tu correo institucional",
+                    });
+                }
+                
+            },
+            error: () =>{
+                $("#loader").html("");
+                Swal.fire({
+                    icon: "error",
+                    title: "No se pudo enviar la información",
+                    text: "Inténtalo de nuevo o contacta a soporte",
+                });
+            }
+        });
+    });
+
+    // Envio de la información
+    $("#registerForm").on("submit", function(e) {
+        console.log("Enviando formulario");
+        e.preventDefault();
+
+        let formData = new FormData(this);
+        const url = 'http://localhost/Proyecto_Final/src/controllers/register_student.php';
+        $("#loader").value = loading;
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: (response) => {
+                if(!response.success){
+                    $("#loader").html("");
+                    grecaptcha.reset();
+                    Swal.fire({
+                        icon: "error",
+                        title: "No se pudo enviar la información",
+                        text: response.message
+                    });
+                }else{
+                    Swal.fire({
+                        icon: "success",
+                        title: "Registo exitoso",
+                        text: response.message,
+                    }).then(() => {
+                        location.href = 'http://localhost/Proyecto_Final/public/';
+                    });
+                }
+            },
+            error: () => {
+                grecaptcha.reset();
+                $("#loader").html("");
+                Swal.fire({
+                    icon: "error",
+                    title: "No se pudo enviar la información",
+                    text: "Inténtalo de nuevo o contacta a soporte",
+                });
+            }
+        });
+    });
+});
+
 

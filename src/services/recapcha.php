@@ -9,7 +9,7 @@ class RecaptchaValidator {
      * @param string $secretKey La clave secreta de reCAPTCHA.
      */
     public function __construct() {
-        $this->secretKey = "6LeN-qUqAAAAACCenC_LpWQxxTBmmfI0ARetQc6x";
+        $this->secretKey = "6LdtuasqAAAAAPwX1aKXwBBj5xiSpYBr8zYh4gMl";
     }
 
     /**

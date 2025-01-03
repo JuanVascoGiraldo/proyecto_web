@@ -1,0 +1,112 @@
+
+.main-casillero {
+    margin-top: 20px;
+    background-color: white;
+    width: 80%;
+    margin: auto;
+    border-radius: 20px;
+    border: 2px solid #f1f1f1;
+}
+
+.locker {
+    width: 100px;
+    height: 200px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: xx-large;
+}
+
+.locker:hover {
+    transform: scale(1.12);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#lockers-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    justify-content: center;
+    margin: auto;
+}
+
+.color-legend{
+    display: flex;
+    margin: auto;
+    width: 50%;
+    margin: auto;
+}
+
+.disponible {
+    background-image: url('../imgs/locker_disponible.JPG');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+}
+
+.ocupado {
+    background-image: url('../imgs/locker_ocupado.JPG');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+}
+
+.pendiente{
+    background-image: url('../imgs/locker_pendiente.JPG');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+}
+
+.vencido{
+    background-image: url('../imgs/locker_vencido.JPG');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+}
+
+.colors{
+    display: flex;
+    align-items: center;
+}
+
+
+@media (max-width: 1000px) {
+    #lockers-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 800px) {
+    .color-legend{
+        display: block;
+    }
+
+    .colors{
+        display: block;
+        margin: auto;
+    }
+}
+
+@media (max-width: 700px) {
+    #lockers-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    #lockers-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+

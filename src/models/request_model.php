@@ -6,6 +6,7 @@
         private string $id;
         private int $casillero;
         private int $status;
+        // 0 = pendiente, 1 = aceptado, 2 = rechazado
         private DateTime $created_at;
         private DateTime $updated_at;
         private int $is_acepted;
@@ -32,7 +33,7 @@
             return $this->id;
         }
 
-        public function getCcasillero(): int
+        public function getCasillero(): int
         {
             return $this->casillero;
         }
@@ -60,6 +61,11 @@
         public function getPeriodo(): string
         {
             return $this->periodo;
+        }
+
+        public function getIsAcepted(): int
+        {
+            return $this->is_acepted;
         }
 
         public function set_casillero(int $casillero): void

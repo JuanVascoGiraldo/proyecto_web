@@ -1,7 +1,8 @@
 <?php
-    require_once __DIR__ ."./../helpers/uuid.php";
+    require_once __DIR__ ."./../helpers/gen_id.php";
     require_once __DIR__ ."./../helpers/code_generator.php";
     require_once __DIR__ ."./../helpers/response_model.php";
+    require_once __DIR__ ."./../helpers/constants.php";
     require_once __DIR__ ."./../models/verification.php";
     require_once __DIR__ ."./../repositories/verification_repository.php";
     require_once __DIR__ ."./../services/send_mail_service.php";
@@ -34,7 +35,7 @@
 
         $code = generateAlphanumericCode();
         $expiration_date = addMinutesToDate(getCurrentUTC(), 60);
-        $id = generateUUIDv4();
+        $id = generateID(VERIFICATION_PREFIX);
 
         $verification = new Verification(
             $id, $code, $email,

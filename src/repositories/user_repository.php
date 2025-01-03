@@ -29,7 +29,7 @@ class UserRepository {
     public function save(User $user): bool {
         try {
             $stmt = $this->connection->prepare(
-                "INSERT INTO user (id, username, password, role, email, status, created_at, updated_at) 
+                "INSERT INTO Users (id, username, password, role, email, status, created_at, updated_at) 
                 VALUES (:id, :username, :password, :role, :email, :status, :created_at, :updated_at);"
             );
             return $stmt->execute([
@@ -39,8 +39,8 @@ class UserRepository {
                 "role" => $user->getRole(),
                 "email"=> $user->getEmail(),
                 "status" => $user->getStatus(),
-                "created_at" => $user->getCreatedAt(),
-                "updated_at"=> $user->getUpdatedAt()
+                "created_at" => $user->getCreatedAt()->format('Y-m-d H:i:s'),
+                "updated_at"=> $user->getUpdatedAt()->format("Y-m-d H:i:s"),
             ]);
         } catch (PDOException $e) {
             throw new Exception("Error al guardar el usuario: " . $e->getMessage());
@@ -55,7 +55,7 @@ class UserRepository {
      */
     public function findById(string $id): ?User {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM usuarios WHERE id = :id");
+            $stmt = $this->connection->prepare("SELECT * FROM Users WHERE id = :id");
             $stmt->execute(['id' => $id]);
             $result = $stmt->fetch();
 
@@ -67,8 +67,8 @@ class UserRepository {
                     $result['email'],
                     $result['role'],
                     $result['status'],
-                    $result['created_at'],
-                    $result['updated_at']
+                    new DateTime($result['created_at']),
+                    new DateTime($result['updated_at'])
                 );
             }
             return null;
@@ -80,7 +80,7 @@ class UserRepository {
     public function findByUsername(string $username): ?User {
         try {
             $stmt = $this->connection->prepare(
-                "SELECT * FROM user WHERE username = :username"
+                "SELECT * FROM Users WHERE username = :username"
             );
             $stmt->execute([
                 "username"=> $username
@@ -94,8 +94,8 @@ class UserRepository {
                     $result["email"],
                     $result["role"],
                     $result["status"],
-                    $result["created_at"],
-                    $result["updated_at"]
+                    new DateTime($result['created_at']),
+                    new DateTime($result['updated_at'])
                     );
             }
             return null;
@@ -113,7 +113,7 @@ class UserRepository {
     public function findByEmail(string $email): ?User {
         try {
             $stmt = $this->connection->prepare(
-                "SELECT * FROM user WHERE email = :email"
+                "SELECT * FROM Users WHERE email = :email"
             );
             $stmt->execute([
                 "email"=> $email
@@ -127,8 +127,8 @@ class UserRepository {
                     $result["email"],
                     $result["role"],
                     $result["status"],
-                    $result["created_at"],
-                    $result["updated_at"]
+                    new DateTime($result['created_at']),
+                    new DateTime($result['updated_at'])
                 );
             }
             return null;
@@ -153,8 +153,8 @@ class UserRepository {
             return $stmt->execute([
                 "user_id"=> $user->getId(),
                 "id"=> $session->getId(),
-                "created_at"=> $session->getCreatedAt(),
-                "expiration_date"=> $session->getExpirationDate()
+                "created_at"=> $session->getCreatedAt()->format("Y-m-d H:i:s"),
+                "expiration_date"=> $session->getExpirationDate()->format("Y-m-d H:i:s"),
             ]);
         } catch (PDOException $e) {
             throw new Exception("Error al guardar la sesión: " . $e->getMessage());
@@ -173,7 +173,7 @@ class UserRepository {
                 $stmt = $this->connection->prepare(
                     "UPDATE sessions SET expiration_date = :expiration_date WHERE id = :id");
                 $stmt->execute([
-                    "expiration_date" => $session->getExpirationDate(),
+                    "expiration_date" => $session->getExpirationDate()->format("Y-m-d H:i:s"),
                     "id" => $session->getId()
                 ]);
             }
@@ -190,7 +190,7 @@ class UserRepository {
             ");
             $stmt->execute([
                 "id"=> $session_id,
-                "expiration_date"=> getCurrentUTC()
+                "expiration_date"=> getCurrentUTC()->format("Y-m-d H:i:s"),
                 ]);
             $result = $stmt->fetch();
             if($result){
