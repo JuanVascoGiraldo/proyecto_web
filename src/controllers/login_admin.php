@@ -51,10 +51,10 @@
         }
 
         $new_session = new Session(
-            generateID(SESSION_PREFIX), $user->getId(), getCurrentUTC(), addMinutesToDate(getCurrentUTC(), 60)
+            generateID(SESSION_PREFIX), getCurrentUTC(), addMinutesToDate(getCurrentUTC(), 60)
         );
 
-        $user->addSession($new_session);
+        $user->add_Session($new_session);
         $user_repository->save_sessions($user, $new_session);
         $user_repository->update_all_user_sessions($user);
         $data = [

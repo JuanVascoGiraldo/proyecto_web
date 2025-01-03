@@ -102,7 +102,7 @@
          * Funcion para agregar una sesion a un usuario, al agregar la sesión
          * desactivamos todas las otras anteriores sesiones del usuario
          * 
-         * @param string $session Sesión a agregar
+         * @param Session $session Sesión a agregar
         */
         public function add_session(Session $session) {
             $time = getCurrentUTC();
