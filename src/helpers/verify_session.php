@@ -1,9 +1,9 @@
 <?php
-    require_once __DIR__.'constants.php';
-    require_once __DIR__.'../services/database.php';
-    require_once __DIR__.'../models/user.php';
-    require_once __DIR__.'../repositories/user_repository.php';
-    require_once __DIR__.'/jwt.php';
+    require_once __DIR__.'./constants.php';
+    require_once __DIR__.'/../services/database.php';
+    require_once __DIR__.'/../models/user.php';
+    require_once __DIR__.'/../repositories/user_repository.php';
+    require_once __DIR__.'./jwt.php';
 
     function verify_session($jwt): ?User{
         try{

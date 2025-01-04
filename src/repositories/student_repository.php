@@ -153,8 +153,8 @@
         public function save_request(RequestModel $request, string $user_id): void{
             try {
                 $stm = $this->connection->prepare(
-                    "INSERT INTO Requests (id, casillero, status, created_at, updated_at, is_acepted, url_payment_document, periodo, user_id)
-                    VALUES (:id, :casillero, :status, :created_at, :updated_at, :is_acepted, :url_payment_document, :periodo, :user_id);");
+                    "INSERT INTO Requests (id, casillero, status, created_at, updated_at, is_acepted, url_payment_document, periodo, user_id, until_at)
+                    VALUES (:id, :casillero, :status, :created_at, :updated_at, :is_acepted, :url_payment_document, :periodo, :user_id, :until_at);");
                 $stm->execute([
                     'id' => $request->getId(),
                     'casillero' => $request->getCasillero(),
@@ -164,7 +164,8 @@
                     'is_acepted' => $request->getIsAcepted(),
                     'url_payment_document' => $request->getUrlPaymentDocument(),
                     'periodo' => $request->getPeriodo(),
-                    'user_id' => $user_id
+                    'user_id' => $user_id,
+                    'until_at' => $request->getUntilAt()->format('Y-m-d H:i:s')
                 ]);
             }catch (PDOException $e) {
                 throw new Exception('Error al guardar la solicitud'. $e->getMessage());
@@ -188,7 +189,8 @@
                         new DateTime($result['updated_at']),
                         $result['is_acepted'],
                         $result['url_payment_document'],
-                        $result['periodo']
+                        $result['periodo'],
+                        new DateTime($result['until_at'])
                     );
                 }
                 return null;
@@ -199,18 +201,20 @@
         
         public function find_all_request_by_user_id(string $user_id): array{
             try {
-                $stmt = $this->connection->prepare(
-                    'SELECT * FROM Requests WHERE user_id = :user_id;');
-                $stmt->execute(['user_id'=> $user_id]);
+                $query = 'SELECT * FROM Requests WHERE user_id ="'.$user_id.'";';
+                $stmt = $this->connection->prepare($query);
+                $stmt->execute();
                 $result = $stmt->fetchAll();
                 $requests = [];
                 foreach($result as $request){
-                    $requests[] = new RequestModel(
+                    $new_req = new RequestModel(
                         $request['id'], $request['casillero'],
                         $request['status'], new DateTime($request['created_at']),
                         new DateTime($request['updated_at']), $request['is_acepted'],
-                        $request['url_payment_document'], $request['periodo']
+                        $request['url_payment_document'], $request['periodo'],
+                        new DateTime($request['until_at'])
                     );
+                    $requests[] = $new_req;
                 }
                 return $requests;
             }catch (PDOException $e) {
@@ -236,7 +240,8 @@
                         new DateTime($result['updated_at']),
                         $result['is_acepted'],
                         $result['url_payment_document'],
-                        $result['periodo']
+                        $result['periodo'],
+                        new DateTime($result['until_at'])
                     );
                 }
                 return null;

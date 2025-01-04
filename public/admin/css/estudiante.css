@@ -20,6 +20,11 @@
     color: green;
 }
 
+.acetado {
+    color: green;
+}
+
+
 .rechazado{
     color: red;
 }
@@ -35,3 +40,10 @@
 .terminado {
     color: rgb(38, 0, 255);
 }
+
+@media screen and (max-width: 800px){
+    .main-estudiante{
+        width: 100%;
+    }
+}
+

@@ -6,18 +6,20 @@
         private string $id;
         private int $casillero;
         private int $status;
-        // 0 = pendiente, 1 = aceptado, 2 = rechazado
+        // 0 = pendiente, 1 = aceptado, 2 = terminado, 3 = rechazado
         private DateTime $created_at;
         private DateTime $updated_at;
         private int $is_acepted;
         private string $url_payment_document;
         private string $periodo;
 
+        private DateTime $until_at;
+
         public function __construct(
             string $id, int $casillero, int $status,
             DateTime $created_at, DateTime $updated_at,
             int $is_acepted, string $url_payment_document,
-            string $periodo
+            string $periodo, DateTime $until_at = null
         ){
             $this->id = $id;
             $this->casillero = $casillero;
@@ -27,6 +29,7 @@
             $this->is_acepted = $is_acepted;
             $this->url_payment_document = $url_payment_document;
             $this->periodo = $periodo;
+            $this->until_at = $until_at;
         }
 
         public function getId(): string{
@@ -90,6 +93,26 @@
         {
             $this->url_payment_document = $url_payment_document;
             $this->updated_at = getCurrentUTC();
+        }
+
+        public function setPeriodo(string $periodo): void
+        {
+            $this->periodo = $periodo;
+        }
+
+        public function getUntilAt(): DateTime
+        {
+            return $this->until_at;
+        }
+
+        public function setUntilAt(DateTime $until): void
+        {
+            $this->until_at = $until;
+        }
+
+        public function toArray(): array
+        {
+            return get_object_vars($this);
         }
 
     }

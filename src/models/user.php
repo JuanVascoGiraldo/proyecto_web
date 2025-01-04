@@ -128,5 +128,38 @@
         public function is_admin(): bool {
             return $this->role === 1;
         }
+
+        /**
+         * Devuelve un arreglo con los datos del usuario.
+         * @return array Arreglo con los datos del usuario para la vista de admin.
+         */
+        public function toArray_to_admin(): array {
+            $complete_name = $this->student->getFirstName();
+            if ($this->student->getSecondname() !== ""){
+                $complete_name .= " ". $this->student->getSecondname();
+            }
+            $complete_name .= " ". $this->student->getFirstsurname(). " ". $this->student->getSecondsurname();
+
+            return [
+                'id'=> $this->id,
+                'email'=> $this->email,
+                'username'=> $this->username,
+                'user_created_at'=> $this->createdAt->format('Y-m-d H:i:s'),
+                'boleta'=> $this->student->getBoleta(),
+                'first_name'=> $this->student->getFirstName(),
+                'second_name'=> $this->student->getSecondName(),
+                'first_last_name'=> $this->student->getFirstsurname(),
+                'second_last_name'=> $this->student->getSecondsurname(),
+                'phone'=> $this->student->getTelefono(),
+                'height'=> $this->student->getHeight(),
+                'curp'=> $this->student->getCurp(),
+                'credencial'=> $this->student->getCredencial_url(),
+                'horario'=> $this->student->getHorario_url(),
+                'casillero'=> $this->student->get_requests()[0]->getCasillero(),
+                'estado_solicitud'=> $this->student->get_requests()[0]->getStatus(),
+                'periodo'=> $this->student->get_requests()[0]->getPeriodo(),
+                'complete_name'=> $complete_name
+            ];
+        }
     }
 ?>

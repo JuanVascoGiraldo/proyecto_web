@@ -105,6 +105,10 @@
             $this->horario_url = $horario_url;
         }
 
+        public function get_requests(): array{
+            return $this->requests;
+        }
+
         public function set_requests(array $requests): void{
             $this->requests = $requests;
         }

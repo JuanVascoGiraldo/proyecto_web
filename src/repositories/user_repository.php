@@ -202,6 +202,36 @@ class UserRepository {
         }
     }
 
+    /**
+     * Obtiene todos los estudiantes.
+     * @throws \Exception Si ocurre un error al buscar los estudiantes.
+     * @return User[] Lista de estudiantes.
+     */
+    public function get_all_students(): array {
+        try {
+            $stmt = $this->connection->prepare(
+                "SELECT * FROM Users WHERE role = 2"
+            );
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+            $students = [];
+            foreach($result as $student) {
+                $students[] = new User(
+                    $student["id"],
+                    $student["username"],
+                    $student["password"],
+                    $student["email"],
+                    $student["role"],
+                    $student["status"],
+                    new DateTime($student['created_at']),
+                    new DateTime($student['updated_at'])
+                );
+            }
+            return $students;
+        }catch (PDOException $e) {
+            throw new Exception("Error al buscar los estudiantes". $e->getMessage());
+        }
+    }
 
 }
 

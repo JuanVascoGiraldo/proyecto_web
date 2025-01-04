@@ -1,5 +1,19 @@
 
 const regex_curp = /^[A-Z]{4}[0-9]{6}[HM]{1}[A-Z]{2}[QWRTYPSDFGHJKLZXCVBNM]{3}[A-Z0-9]{1}[0-9]{1}$/;
+let loading = "<script>"+
+    "Swal.fire({"+
+            "title: 'Datos enviados',"+
+            "html: 'Los datos fueron enviados espere un momento',"+
+            "timer: 10000,"+
+            "allowOutsideClick: false,"+
+            "allowEscapeKey: false,"+
+            "timerProgressBar: true,"+
+            "didOpen: () => {"+
+            "Swal.showLoading()"+
+            "}"+
+        "})"+
+    "</script>";
+
 
 function monstrar_mensaje_campo_incopleto(campo, nombre, texto) {
     Swal.fire({
@@ -15,15 +29,6 @@ function monstrar_mensaje_campo_incopleto(campo, nombre, texto) {
     });
 }
 
-function validar_curp(){
-    const curp = document.getElementById('Curp');
-    if (curp.value.length==0 || !regex_curp.test(curp.value)) {
-        monstrar_mensaje_campo_incopleto(curp, "El CURP", "Recuerda que la CURP debe tener 18 caracteres e ingresa un formato valido");
-        return false;
-    }
-    return true;
-}
-
 function validar_password_form() {
     const password = document.getElementById('Password');
     if (password.value.length==0){
@@ -33,15 +38,71 @@ function validar_password_form() {
     return true;
 }
 
+function validar_email() {
+    const email = document.getElementById('email');
+    if (email.value.length==0){
+        monstrar_mensaje_campo_incopleto(email, "El correo", "Recuerda que el correo es obligatorio");
+        return false
+    }
+    return true;
+}
+
 function validar_formulario_admin() {
-    if(!validar_curp()) return;
+    if(!validar_email()) return;
     if(!validar_password_form()) return;
 
-    Swal.fire({
-        icon: "success",
-        title: "Datos",
-        text: "Datos correctos",
-    }).then(() => {
-        location.reload()
+    const form = document.getElementById('form_admin');
+    const event = new Event('submit', {
+        'bubbles': true,
+        'cancelable': true
     });
+    form.dispatchEvent(event);
+    
 }
+
+$(document).ready(function() {
+
+    // Envio de la información
+    $("#form_admin").on("submit", function(e) {
+        console.log("Enviando formulario");
+        e.preventDefault();
+
+        let formData = new FormData(this);
+        const url = 'http://localhost/Proyecto_Final/src/controllers/login_admin.php';
+        $("#loader").value = loading;
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: (response) => {
+                if(!response.success){
+                    $("#loader").html("");
+                    Swal.fire({
+                        icon: "error",
+                        title: "No se pudo enviar la información",
+                        text: response.message
+                    });
+                }else{
+                    Swal.fire({
+                        icon: "success",
+                        title: "Inicio exitoso",
+                        text: response.message,
+                    }).then(() => {
+                        location.href = 'http://localhost/Proyecto_Final/public/admin/';
+                    });
+                }
+            },
+            error: () => {
+                grecaptcha.reset();
+                $("#loader").html("");
+                Swal.fire({
+                    icon: "error",
+                    title: "No se pudo enviar la información",
+                    text: "Inténtalo de nuevo o contacta a soporte",
+                });
+            }
+        });
+    });
+});

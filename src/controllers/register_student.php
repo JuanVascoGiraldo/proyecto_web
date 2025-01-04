@@ -108,6 +108,17 @@
             exit;
         }
 
+        if($student_repository->find_student_by_boleta($boleta)){
+            $res = new Response_model(
+                "La boleta ya está registrada",
+                1,
+                false
+            );
+            http_response_code(200);
+            echo json_encode($res->toArray(), JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+
         //VERIFICAR SI EL CASILLERO YA ESTA ASIGNADO
         if(
             $is_renovacion && 
@@ -196,15 +207,17 @@
         $student_repository->save_student_info($student, $id_user);
 
         $locker = (int)$locker;
+
         $request_casillero = new RequestModel(
             generateID(REQUEST_PREFIX),
             $locker,
-            $is_renovacion ? 2 : 1,
+            $is_renovacion ? 1 : 0,
             getCurrentUTC(),
             getCurrentUTC(),
             0,
             "",
-            DEFAULT_PERIODO
+            DEFAULT_PERIODO,
+            addMinutesToDate(getCurrentUTC(), 2880)
         );
         $student_repository->save_request($request_casillero, $id_user);
 

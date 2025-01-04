@@ -8,7 +8,7 @@ send_to_register = () => {
 }
 
 send_to_admin = () => {
-    window.location.href = "admin.html";
+    window.location.href = "admin.php";
 }
 
 send_to_acuse = () => {
