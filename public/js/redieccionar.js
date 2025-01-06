@@ -12,5 +12,5 @@ send_to_admin = () => {
 }
 
 send_to_acuse = () => {
-    window.location.href = "acuse.html";
+    window.location.href = "acuse.php";
 }

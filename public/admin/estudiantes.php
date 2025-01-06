@@ -10,7 +10,7 @@
         header('Location: ../index.html');
     }
     if(!$user->is_admin()){
-        header('Location: ../index.html');
+        header('Location: ../student/');
     }
 ?>
 
@@ -105,7 +105,7 @@
                         </div>
                         <div class="modal-body">
                             <form name="updateForm" id="updateForm" method="POST" enctype="multipart/form-data">
-                                <input type="hidden" id="id_update" name="id">
+                                <input type="hidden" id="id_update" name="id_update">
                                 <!-- Número de Locker -->
                                 <div class="mb-3">
                                     <label for="numeroLocker" class="form-label">Número de locker (Asignar o Cambiar)</label>
@@ -165,7 +165,7 @@
                                     <div class="mb-3">
                                         <label for="credencial" class="form-label">Credencial del IPN vigente (PDF, Si no se quiere editar no subir nada)</label>
                                         <div class="input-group custom-file-button input_completo">
-                                            <label class="input-group-text" for="credencial">
+                                            <label class="input-group-text" for="credencial_update">
                                                 <img src="../imgs/credencial.png" alt="pdf icon" class="pdf_icon">
                                                 &nbsp;&nbsp;Selecciona tu Credencial
                                             </label>
@@ -178,7 +178,7 @@
                                         <label for="horario" class="form-label">Horario de clases (PDF, Si no se quiere editar no subir nada)</label>
                                         <div class="input-group custom-file-button input_completo">
                                             <input type="file" class="form-control" id="horario_update" name="horario_update" accept=".pdf" >
-                                            <label class="input-group-text" for="horario">
+                                            <label class="input-group-text" for="horario_update">
                                                 <img src="../imgs/horario.png" alt="pdf icon" class="pdf_icon">
                                                 &nbsp;&nbsp;Selecciona tu Horario
                                             </label>
@@ -198,9 +198,9 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-danger" >Eliminar</button>
+                            <button type="button" class="btn btn-danger" onclick="delete_user()" >Eliminar</button>
                             <button type="button" class="btn btn-primary" id="Editar_btn" onclick="editar_estudiante()">Editar</button>
-                            <button type="button" class="btn btn-success" id="Save_btn" style="display: none;">Guardar</button>
+                            <button type="button" class="btn btn-success" id="Save_btn" style="display: none;" onclick="validateForm_update()">Guardar</button>
                         </div>
                     </div>
                 </div>
@@ -312,37 +312,7 @@
                                     <label for="curp" class="form-label">CURP</label>
                                     <input type="text" class="form-control input_completo" id="curp" name="curp" accept=".pdf" >
                                 </div>
-                                <!-- Contraseña -->
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Contraseña</label>
-                                    <div class="input-group input_completo">
-                                        <input
-                                            type="password" class="form-control input_completo" name="password"
-                                            id="password"
-                                        >
-                                        <span class="input-group-text" id="ojocontra" onclick="mostrarPassword()" style="cursor: pointer;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-                                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Repite tu Contraseña</label>
-                                    <div class="input-group input_completo">
-                                        <input
-                                            type="password" class="form-control input_completo" name="password2"
-                                            id="password2">
-                                        <span class="input-group-text" id="ojocontra2" onclick="mostrarPassword2()" style="cursor: pointer;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-                                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
+                                
                                 <!-- Captcha -->
                                 <div class="d-flex justify-content-between">
                                     <div class="g-recaptcha" data-sitekey="6LdtuasqAAAAAGkmQC8GOTORwT9avOz7X9dwcyvR" style="margin: auto;"></div>

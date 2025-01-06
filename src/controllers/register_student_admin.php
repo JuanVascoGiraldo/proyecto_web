@@ -58,10 +58,10 @@
         $boleta = $_POST['boleta'] ?? null;
         $altura = $_POST['estatura'] ?? null;
         $curp = $_POST['curp'] ?? null;
-        $password = $_POST['password'] ?? null;
         $locker = $_POST['numeroLocker'] ?? "NA";
         $tipoSolicitud = $_POST['tipoSolicitud'] ?? null;
         $email = $_POST['correo'] ?? null;
+        $password = strtoupper(substr($curp,0,4))."_".$boleta;
 
         if (!isset($_FILES['credencial']) || $_FILES['credencial']['error'] != UPLOAD_ERR_OK) {
             $res = new Response_model(
@@ -222,7 +222,7 @@
             0,
             "",
             DEFAULT_PERIODO,
-            addMinutesToDate(getCurrentUTC(), 2880)
+            $is_renovacion?addMinutesToDate(getCurrentUTC(), 1440) :addMinutesToDate(getCurrentUTC(), 2880)
         );
         $student_repository->save_request($request_casillero, $id_user);
 
@@ -236,6 +236,13 @@
         $email_service ->confirm_register_email(
             $user->getEmail(), $is_renovacion, $request_casillero->getCasillero(), $request_casillero->getPeriodo()
         );
+
+        if($is_renovacion){
+            $email_service->sendCasilleroAsignado_email(
+                $user->getEmail(), $request_casillero->getCasillero()
+            );
+        }
+
         $res = new Response_model(
             $message,
             4,

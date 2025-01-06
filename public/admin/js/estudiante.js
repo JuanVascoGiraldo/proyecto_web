@@ -74,6 +74,23 @@ function set_data_in_table(){
 
 
     document.getElementById('tableBody').innerHTML =  texto.join('');
+
+    const rows = document.querySelectorAll('#tableBody tr');
+    rows.forEach(row => {
+        row.addEventListener('mouseover', () => {
+            row.classList.add('table-success');
+        });
+
+        row.addEventListener('mouseout', () => {
+            row.classList.remove('table-success');
+        });
+    });
+
+    const filter = get_url_param();
+    if (filter) {
+        document.getElementById('filterInput').value = filter;
+        filter_rows(filter);
+    }
 }
 
 let personass = [
@@ -85,10 +102,14 @@ let estado = {
     "2": '<span class="terminado">Terminada</span>',
     "3": '<span class="rechazado">Rechazada</span>',
 }
-    
 
-document.getElementById('filterInput').addEventListener('input', function () {
-    const filter = this.value.toLowerCase();
+function get_url_param(){
+    const url = new URL(window.location.href);
+    const search_params = new URLSearchParams(url.search);
+    return search_params.get('search');
+}
+
+function filter_rows(filter){
     const rows = document.querySelectorAll('#tableBody tr');
 
     rows.forEach(row => {
@@ -98,19 +119,15 @@ document.getElementById('filterInput').addEventListener('input', function () {
         );
             row.style.display = match ? '' : 'none';
         });
+}
+    
+
+document.getElementById('filterInput').addEventListener('input', function () {
+    const filter = this.value.toLowerCase();
+    filter_rows(filter);
 });
 
 // Cambio de color en la fila de la tabla de estudiantes
-const rows = document.querySelectorAll('#tableBody tr');
-rows.forEach(row => {
-    row.addEventListener('mouseover', () => {
-        row.classList.add('table-success');
-    });
-
-    row.addEventListener('mouseout', () => {
-        row.classList.remove('table-success');
-    });
-});
 
 function open_archivo(name){
     console.log(name);
@@ -304,8 +321,8 @@ $(document).ready(function() {
         e.preventDefault();
 
         let formData = new FormData(this);
-        const url = 'http://localhost/Proyecto_Final/src/controllers/register_student_admin.php';
-        $("#loader").value = loading;
+        const url = 'http://localhost/Proyecto_Final/src/controllers/update_student.php';
+        $("#loader").html(loading);
         $.ajax({
             url: url,
             type: "POST",
@@ -315,7 +332,6 @@ $(document).ready(function() {
             success: (response) => {
                 if(!response.success){
                     $("#loader").html("");
-                    grecaptcha.reset();
                     Swal.fire({
                         icon: "error",
                         title: "No se pudo enviar la información",
@@ -332,7 +348,6 @@ $(document).ready(function() {
                 }
             },
             error: () => {
-                grecaptcha.reset();
                 $("#loader").html("");
                 Swal.fire({
                     icon: "error",
@@ -343,3 +358,56 @@ $(document).ready(function() {
         });
     });
 });
+
+function delete_user(){
+    const id = document.getElementById('id_update').value;
+    Swal.fire({
+        title: '¿Estás seguro de eliminar este estudiante?',
+        text: "No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminarlo!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const url = 'http://localhost/Proyecto_Final/src/controllers/delete_student.php';
+            let formData = new FormData();
+            formData.append('id', id);
+            $("#loader").html(loading);
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: (response) => {
+                    if(!response.success){
+                        $("#loader").html("");
+                        Swal.fire({
+                            icon: "error",
+                            title: "No se pudo enviar la información",
+                            text: response.message
+                        });
+                    }else{
+                        Swal.fire({
+                            icon: "success",
+                            title: "Registo exitoso",
+                            text: response.message,
+                        }).then(() => {
+                            location.reload();
+                        });
+                    }
+                },
+                error: () => {
+                    $("#loader").html("");
+                    Swal.fire({
+                        icon: "error",
+                        title: "No se pudo enviar la información",
+                        text: "Inténtalo de nuevo o contacta a soporte",
+                    });
+                }
+            });
+        }
+    });
+}

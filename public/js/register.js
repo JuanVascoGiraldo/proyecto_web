@@ -18,6 +18,7 @@ function mostrarnucas(show) {
     }
 }
 
+
 let loading = "<script>"+
     "Swal.fire({"+
             "title: 'Datos enviados',"+
@@ -495,6 +496,7 @@ $(document).ready(function() {
         });
     });
 
+
     // Envio de la información
     $("#registerForm").on("submit", function(e) {
         console.log("Enviando formulario");
@@ -502,7 +504,7 @@ $(document).ready(function() {
 
         let formData = new FormData(this);
         const url = 'http://localhost/Proyecto_Final/src/controllers/register_student.php';
-        $("#loader").value = loading;
+        $('#loader').html(loading);
         $.ajax({
             url: url,
             type: "POST",
@@ -511,7 +513,7 @@ $(document).ready(function() {
             contentType: false,
             success: (response) => {
                 if(!response.success){
-                    $("#loader").html("");
+                    $('#loader').html("");
                     grecaptcha.reset();
                     Swal.fire({
                         icon: "error",
@@ -530,7 +532,7 @@ $(document).ready(function() {
             },
             error: () => {
                 grecaptcha.reset();
-                $("#loader").html("");
+                $('#loader').html("");
                 Swal.fire({
                     icon: "error",
                     title: "No se pudo enviar la información",

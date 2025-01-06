@@ -233,6 +233,70 @@ class UserRepository {
         }
     }
 
+    /**
+     * Actualiza un usuario.
+     * @param User $user Usuario a actualizar.
+     * @throws \Exception Si ocurre un error al actualizar el usuario.  
+     * @return bool Verdadero si se actualiza correctamente.
+     */
+    public function update_user(User $user): bool {
+        try {
+            $stmt = $this->connection->prepare(
+                "UPDATE Users SET username = :username, email = :email, role = :role, status = :status, updated_at = :updated_at WHERE id = :id"
+            );
+            return $stmt->execute([
+                "username" => $user->getUsername(),
+                "email" => $user->getEmail(),
+                "role"=> $user->getRole(),
+                "status"=> $user->getStatus(),
+                "updated_at"=> getCurrentUTC()->format("Y-m-d H:i:s"),
+                "id"=> $user->getId()
+            ]);
+        } catch (PDOException $e) {
+            throw new Exception("Error al actualizar el usuario: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Elimina un usuario.
+     * @param string $id ID del usuario.
+     * @throws \Exception Si ocurre un error al eliminar el usuario.
+     * @return bool Verdadero si se elimina correctamente.
+     */
+    public function delete_user_by_id(string $id): bool {
+        try {
+            $this->delete_session_by_id($id);
+            $stmt = $this->connection->prepare(
+                "DELETE FROM Users WHERE id = :id"
+            );
+            return $stmt->execute([
+                "id"=> $id
+            ]);
+        } catch (PDOException $e) {
+            throw new Exception("Error al borrar el usuario". $e->getMessage());
+        }
+    }
+
+    /**
+     * Elimina todas las sesiónes de un usuario.
+     * @param string $id ID del usuario.
+     * @throws \Exception Si ocurre un error al eliminar la sesión.
+     * @return bool Verdadero si se elimina correctamente.
+     */
+    public function delete_session_by_id(string $id): bool {
+        try {
+            $stmt = $this->connection->prepare(
+                "DELETE FROM Sessions WHERE user_id = :user_id"
+            );
+            return $stmt->execute([
+                "user_id"=> $id
+            ]);
+        } catch (PDOException $e) {
+            throw new Exception("Error al borrar la sesión". $e->getMessage());
+        }
+    }
+
+
 }
 
 ?>

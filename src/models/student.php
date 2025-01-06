@@ -23,12 +23,12 @@
             $this->telefono = $telefono;
             $this->first_name = $first_name;
             $this->second_name = $second_name;
+            $this->first_surname = $first_surname;
             $this->second_surname = $second_surname;
             $this->height = $height;
             $this->curp = $curp;
             $this->credencial_url = $credencial_url;
             $this->horario_url = $horario_url;
-            $this->first_surname = $first_surname;
         }
 
         public function getBoleta(): string{
@@ -97,6 +97,10 @@
             $this->curp = $curp;
         }
 
+        public function setHeight(int $height): void{
+            $this->height = $height;
+        }
+
         public function setcredencial_url(string $credencial_url): void{
             $this->credencial_url = $credencial_url;
         }
@@ -115,6 +119,19 @@
 
         public function add_request(RequestModel $request): void{
             $this->requests[] = $request;
+        }
+
+        /**
+         * Devuelve el nombre completo del estudiante.
+         * @return string Nombre completo del estudiante.
+         */
+        public function getCompleteName(): string{
+            $complete_name = $this->first_name;
+            if ($this->second_name !== ""){
+                $complete_name .= " ". $this->second_name;
+            }
+            $complete_name .= " ". $this->first_surname. " ". $this->second_surname;
+            return $complete_name;
         }
 
     }

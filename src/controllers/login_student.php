@@ -13,7 +13,7 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $boleta = $_POST['boleta'] ?? null;
-        $password = $_POST['password'] ?? null;
+        $password = $_POST['Password'] ?? null;
 
         if ($boleta === null || $password === null) {
             $response = new Response_model(
@@ -58,7 +58,7 @@
         $user_repository->save_sessions($user, $new_session);
         $user_repository->update_all_user_sessions($user);
         $data = [
-            "id" => $user->getId(),
+            "id" => $new_session->getId(),
         ];
         $jwt = generateJWT($data);
         session_start();
@@ -68,6 +68,8 @@
             "0",
             true
         );
+        http_response_code(200);
+        echo json_encode($response->toArray());
 
     }else{
         $response = new Response_model(

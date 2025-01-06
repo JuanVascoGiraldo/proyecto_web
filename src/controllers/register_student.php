@@ -13,6 +13,7 @@
     require_once __DIR__ ."./../models/user.php";
     require_once __DIR__ ."./../models/student.php";
     require_once __DIR__ ."./../models/request_model.php";
+    require_once __DIR__ ."./../services/send_mail_service.php";
 
 
     header('Content-Type: application/json');
@@ -24,6 +25,7 @@
         $user_repository = new UserRepository($database);
         $student_repository = new StudentRepository($database);
         $re_validator = new RecaptchaValidator();
+        $email_service = new SendMailService();
         
         // obtener los datos del formulario
         $recapcha_token = $_POST['g-recaptcha-response'] ?? null;
@@ -217,7 +219,7 @@
             0,
             "",
             DEFAULT_PERIODO,
-            addMinutesToDate(getCurrentUTC(), 2880)
+            $is_renovacion?addMinutesToDate(getCurrentUTC(), 1440) :addMinutesToDate(getCurrentUTC(), 2880)
         );
         $student_repository->save_request($request_casillero, $id_user);
 
@@ -231,6 +233,17 @@
         if($student_repository->how_request_by_periodo(DEFAULT_PERIODO) > MAX_REQUEST_BY_PERIOD){
             $message = "Solicitud guardada correctamente, pero ya no hay casilleros disponibles para este periodo, pero queda atento a tu correo para la asignación de casillero";
         }
+
+        $email_service ->confirm_register_email(
+            $user->getEmail(), $is_renovacion, $request_casillero->getCasillero(), $request_casillero->getPeriodo()
+        );
+
+        if($is_renovacion){
+            $email_service->sendCasilleroAsignado_email(
+                $user->getEmail(), $request_casillero->getCasillero()
+            );
+        }
+
         $res = new Response_model(
             $message,
             4,

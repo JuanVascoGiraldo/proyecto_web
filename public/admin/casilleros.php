@@ -1,5 +1,6 @@
 <?php
     require_once __DIR__."/../../src/helpers/verify_session.php";
+
     session_start();
     if(!isset($_SESSION['jwt'])){
         header('Location: ../index.html');
@@ -10,7 +11,7 @@
         header('Location: ../index.html');
     }
     if(!$user->is_admin()){
-        header('Location: ../index.html');
+        header('Location: ../student/');
     }
 ?>
 

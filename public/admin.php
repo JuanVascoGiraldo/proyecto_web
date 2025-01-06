@@ -5,7 +5,7 @@
         $user = verify_session($_SESSION['jwt']);
         if($user){
             if(!$user->is_admin()){
-                header('Location: index.html');
+                header('Location: student/index.php');
             }else{
                 header('Location: admin/index.php');
             }
@@ -52,7 +52,7 @@
                             <a class="nav-link" aria-current="page" onclick="send_to_register()">Registro</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" onclick="send_to_acuse()">Acuse</a>
+                            <a class="nav-link" onclick="send_to_acuse()">Estudiante</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" onclick="send_to_admin()">Admin</a>

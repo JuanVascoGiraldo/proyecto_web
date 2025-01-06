@@ -10,7 +10,7 @@
         header('Location: ../index.html');
     }
     if(!$user->is_admin()){
-        header('Location: ../index.html');
+        header('Location: ../student/');
     }
 ?>
 

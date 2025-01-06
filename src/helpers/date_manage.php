@@ -15,7 +15,10 @@
          * @param DateTime $date2 La segunda fecha.
          * @return bool Verdadero si hay más de 24 horas de diferencia, falso en caso contrario.
          */
-        function isMoreThan24Hours(DateTime $date1, DateTime $date2): bool {
+        function isMoreThan24Hours(DateTime $date1, DateTime $date2 = null): bool {
+            if ($date2 === null) {
+                $date2 = getCurrentUTC();
+            }
             $interval = $date1->diff($date2);
 
             // Verificar si hay más de 1 día completo de diferencia o 24 horas exactas

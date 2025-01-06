@@ -155,7 +155,7 @@
                 'curp'=> $this->student->getCurp(),
                 'credencial'=> $this->student->getCredencial_url(),
                 'horario'=> $this->student->getHorario_url(),
-                'casillero'=> $this->student->get_requests()[0]->getCasillero(),
+                'casillero'=> $this->student->get_requests()[0]->getCasillero() == 0? "---": $this->student->get_requests()[0]->getCasillero(),
                 'estado_solicitud'=> $this->student->get_requests()[0]->getStatus(),
                 'periodo'=> $this->student->get_requests()[0]->getPeriodo(),
                 'complete_name'=> $complete_name

@@ -1,7 +1,6 @@
 
 
 function mostrarnucas(show) {
-    console.log("mostrar nucas");
     const lockerField = document.getElementById('lockerField');
     lockerField.style.display = show ? 'block' : 'none';
     if (!show) {
@@ -27,68 +26,6 @@ const regex = {
     specialChar: /[$#*+]/,
 };
 
-function validatePassword() {
-    const passwordInput = document.getElementById('password');
-    const value = passwordInput.value;
-
-    // Check each requirement
-    for (let key in regex) {
-        if (regex[key].test(value)) {
-            requirements[key].classList.add('valid');
-            requirements[key].classList.remove('invalid');
-        } else {
-            requirements[key].classList.add('invalid');
-            requirements[key].classList.remove('valid');
-        }
-    }
-}
-
-function mostrarPassword() {
-    const passwordInput = document.getElementById('password');
-    const passwordFieldType = passwordInput.getAttribute('type');
-    const eyeIcon = document.getElementById('ojocontra');
-    if (passwordFieldType === 'password') {
-        passwordInput.setAttribute('type', 'text');
-        eyeIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
-            <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z"/>
-            <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z"/>
-        </svg>`
-    } else {
-        passwordInput.setAttribute('type', 'password');
-        eyeIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-        </svg>`
-    }
-}
-
-function mostrarPassword2() {
-    const passwordInput = document.getElementById('password2');
-    const passwordFieldType = passwordInput.getAttribute('type');
-    const eyeIcon = document.getElementById('ojocontra2');
-    if (passwordFieldType === 'password') {
-        passwordInput.setAttribute('type', 'text');
-        eyeIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
-            <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z"/>
-            <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z"/>
-        </svg>`
-    } else {
-        passwordInput.setAttribute('type', 'password');
-        eyeIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-        </svg>`
-    }
-}
-
-function show_code_verification() {
-    const email = document.getElementById('correo');
-    if (email.value.length==0 || !regex_email.test(email.value)) {
-        document.getElementById('verification_code_container').style.display = 'none';
-        return;
-    }
-    document.getElementById('verification_code_container').style.display = 'block';
-}
 
 function monstrar_mensaje_campo_incopleto(campo, nombre, texto) {
     Swal.fire({
@@ -230,27 +167,6 @@ function validar_credencial(){
     return true;
 }
 
-function validar_password_form() {
-    const password = document.getElementById('password');
-    const password2 = document.getElementById('password2');
-    if (password.value != password2.value) {
-        monstrar_mensaje_campo_incopleto(password, "La Contraseña", "Las contraseñas no coinciden");
-        return false;
-    }
-    for (let key in regex) {
-        if (!regex[key].test(password.value)) {
-            monstrar_mensaje_campo_incopleto(password, "La Contraseña", "Recuerda que la contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número");
-            return false;
-        }
-    }
-
-    if(!regex_complete_password.test(password.value)){
-        monstrar_mensaje_campo_incopleto(password, "La Contraseña", "Recuerda que la contraseña debe tener al menos 8 caracteres, maximo 30, una mayúscula, una minúscula y un número");
-        return false;
-    }
-    return true;
-}
-
 function verify_verification_code() {
     const verification_code = document.getElementById('verification_code');
     if (verification_code.value.length==0) {
@@ -265,7 +181,6 @@ function verify_verification_code() {
 }
 
 function validateForm() {
-    if (!validar_password_form()) return;
 
     let is_renovacion = false;
     let seleccion = document.querySelector('input[name="tipoSolicitud"]:checked');
@@ -292,7 +207,6 @@ function validateForm() {
     if (!validar_credencial()) return;
     if (!validar_horario()) return;
     if (!validar_curp()) return;
-    if (!validar_password_form()) return;
     if (!verify_captha()) return;
 
     let form = document.getElementById('registerForm');
@@ -334,7 +248,7 @@ $(document).ready(function() {
 
         let formData = new FormData(this);
         const url = 'http://localhost/Proyecto_Final/src/controllers/register_student_admin.php';
-        $("#loader").value = loading;
+        $("#loader").html(loading);
         $.ajax({
             url: url,
             type: "POST",
@@ -343,8 +257,8 @@ $(document).ready(function() {
             contentType: false,
             success: (response) => {
                 if(!response.success){
-                    $("#loader").html("");
                     grecaptcha.reset();
+                    $("#loader").html("");
                     Swal.fire({
                         icon: "error",
                         title: "No se pudo enviar la información",

@@ -12,6 +12,7 @@
         private int $is_acepted;
         private string $url_payment_document;
         private string $periodo;
+        private string $url_acuse;
 
         private DateTime $until_at;
 
@@ -19,7 +20,7 @@
             string $id, int $casillero, int $status,
             DateTime $created_at, DateTime $updated_at,
             int $is_acepted, string $url_payment_document,
-            string $periodo, DateTime $until_at = null
+            string $periodo, DateTime $until_at = null, string $url_acuse = ""
         ){
             $this->id = $id;
             $this->casillero = $casillero;
@@ -30,6 +31,7 @@
             $this->url_payment_document = $url_payment_document;
             $this->periodo = $periodo;
             $this->until_at = $until_at;
+            $this->url_acuse = $url_acuse;
         }
 
         public function getId(): string{
@@ -114,6 +116,17 @@
         {
             return get_object_vars($this);
         }
+
+        public function getUrlAcuse(): string
+        {
+            return $this->url_acuse;
+        }
+
+        public function setUrlAcuse(string $url_acuse): void
+        {
+            $this->url_acuse = $url_acuse;
+        }
+
 
     }
 ?>
