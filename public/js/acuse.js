@@ -88,9 +88,10 @@ $(document).ready(function() {
                         icon: "success",
                         title: "Inicio exitoso",
                         text: response.message,
-                    }).then(() => {
-                        location.href = 'http://localhost/Proyecto_Final/public/student/';
                     });
+                    setTimeout(() => {
+                        location.href = 'http://localhost/Proyecto_Final/public/student/';
+                    }, 1000);
                 }
             },
             error: () => {

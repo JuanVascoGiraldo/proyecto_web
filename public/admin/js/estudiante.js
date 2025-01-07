@@ -341,11 +341,14 @@ $(document).ready(function() {
                 }else{
                     Swal.fire({
                         icon: "success",
-                        title: "Registo exitoso",
+                        title: "Actualización exitosa",
                         text: response.message,
                     }).then(() => {
                         window.location.href = window.location.origin + window.location.pathname;
                     });
+                    setTimeout(() => {
+                        window.location.href = window.location.origin + window.location.pathname;
+                    }, 1000);
                 }
             },
             error: () => {
@@ -393,11 +396,12 @@ function delete_user(){
                     }else{
                         Swal.fire({
                             icon: "success",
-                            title: "Registo exitoso",
+                            title: "Se elimino el estudiante",
                             text: response.message,
-                        }).then(() => {
+                        })
+                        setTimeout(() => {
                             window.location.href = window.location.origin + window.location.pathname;
-                        });
+                        }, 1000);
                     }
                 },
                 error: () => {

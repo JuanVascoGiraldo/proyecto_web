@@ -182,7 +182,6 @@ function verify_verification_code() {
 
 function validateForm() {
 
-    let is_renovacion = false;
     let seleccion = document.querySelector('input[name="tipoSolicitud"]:checked');
     if (seleccion == null) {
         Swal.fire({
@@ -193,7 +192,6 @@ function validateForm() {
         return false;
     }
     if (seleccion.value == "renovacion") {
-        is_renovacion = true;
         if(!validar_num_locker() )return;
     }
     if (!validar_primernombre()) return;
@@ -271,8 +269,10 @@ $(document).ready(function() {
                         text: response.message,
                     }).then(() => {
                         window.location.href = window.location.origin + window.location.pathname;
-
                     });
+                    setTimeout(() => {
+                        window.location.href = window.location.origin + window.location.pathname;
+                    }, 1000);
                 }
             },
             error: () => {

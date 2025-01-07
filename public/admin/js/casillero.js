@@ -133,13 +133,7 @@ function asignar_casillero(casillero){
                             text: response.message
                         });
                     }else{
-                        Swal.fire({
-                            icon: "success",
-                            title: "Acción completada",
-                            text: response.message,
-                        }).then(() => {
                             location.reload();
-                        });
                     }
                 },
                 error: () => {

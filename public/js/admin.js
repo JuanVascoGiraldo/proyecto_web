@@ -89,9 +89,10 @@ $(document).ready(function() {
                         icon: "success",
                         title: "Inicio exitoso",
                         text: response.message,
-                    }).then(() => {
-                        location.href = 'http://localhost/Proyecto_Final/public/admin/';
                     });
+                    setTimeout(() => {
+                        location.href = 'http://localhost/Proyecto_Final/public/admin/';
+                    }, 1000);
                 }
             },
             error: () => {
