@@ -270,7 +270,8 @@ $(document).ready(function() {
                         title: "Registo exitoso",
                         text: response.message,
                     }).then(() => {
-                        location.reload();
+                        window.location.href = window.location.origin + window.location.pathname;
+
                     });
                 }
             },

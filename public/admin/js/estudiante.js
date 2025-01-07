@@ -101,6 +101,7 @@ let estado = {
     "1": "<span class='aprobado'>Aceptado</span>",
     "2": '<span class="terminado">Terminada</span>',
     "3": '<span class="rechazado">Rechazada</span>',
+    "4": '<span class="rechazado">Vencida</span>',
 }
 
 function get_url_param(){
@@ -343,7 +344,7 @@ $(document).ready(function() {
                         title: "Registo exitoso",
                         text: response.message,
                     }).then(() => {
-                        location.reload();
+                        window.location.href = window.location.origin + window.location.pathname;
                     });
                 }
             },
@@ -395,7 +396,7 @@ function delete_user(){
                             title: "Registo exitoso",
                             text: response.message,
                         }).then(() => {
-                            location.reload();
+                            window.location.href = window.location.origin + window.location.pathname;
                         });
                     }
                 },

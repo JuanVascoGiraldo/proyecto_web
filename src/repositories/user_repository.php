@@ -296,7 +296,6 @@ class UserRepository {
         }
     }
 
-
 }
 
 ?>

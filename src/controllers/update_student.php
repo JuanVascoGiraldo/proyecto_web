@@ -191,10 +191,9 @@
         $request_actualizada->set_casillero($locker);
 
         $user_repository->update_user($user);
-        $student_repository->update_student($student_actualizado, $user->getId());
+        $student_repository->update_student($student_actualizado, $id_user);
         $student_repository->update_request($request_actualizada);
 
-        
         $message = "Solicitud Actualizada correctamente";
 
         if($is_asigned){

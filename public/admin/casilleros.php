@@ -30,7 +30,6 @@
     <script src="js/redieccionar.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </head>
 <body>
     <header>
@@ -161,13 +160,15 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quitar</button>
-                        <button type="button" class="btn btn-primary">Asignar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                        <button type="button" class="btn btn-primary" style="display: none;" id="button_asignar">Asignar</button>
                     </div>
                 </div>
             </div>
         </div>
         <script src="js/casillero.js"></script>
+        <div id="loader">
+        </div>
     </main>
     <footer class="text-center text-lg-start">
         <div class="container p-4">

@@ -1,6 +1,16 @@
 <?php
 
     require("fpdf/fpdf.php");
+
+    /**
+     * Genera un archivo PDF con un acuse de asignación de casillero.
+     * 
+     * @param string $filePath Ruta donde se guardará el archivo PDF.
+     * @param string $boleta Número de boleta del estudiante.
+     * @param string $nombre Nombre completo del estudiante.
+     * @param string $casillero Número de casillero asignado al estudiante.
+     * @return string Mensaje de éxito.
+     */
     function generarAcuse($filePath, $boleta, $nombre, $casillero) {
         // Crear una instancia de FPDF
         $pdf = new FPDF();

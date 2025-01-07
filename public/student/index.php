@@ -21,7 +21,7 @@
     $requests = $student_repository->find_all_request_by_user_id($user->getId());
     $ultimate_request = $requests[0];
     $is_delayed = false;
-    if($ultimate_request->getStatus() == 1 && isMoreThan24Hours($ultimate_request->getUntilAt())){
+    if($ultimate_request->getStatus() == 1 && $ultimate_request->getUntilAt() < getCurrentUTC()){
         $is_delayed = true;
     }
     $status = "";
@@ -100,12 +100,12 @@
             </div>
             <?php 
                 if($is_delayed){
-                    ?>
+            ?>
                     <div class="alert alert-danger" role="alert">
                         <h4 class="alert-heading">¡Tu solicitud ha vencido!</h4>
                         <p>Tu casillero ya ha sido reasignado. Escribe al soporte para saber si se te puede asignar uno nuevo</p>
                     </div>
-                    <?php
+            <?php
                 }
             ?>
             <div class="row"  style="display: flex; justify-content: center;">

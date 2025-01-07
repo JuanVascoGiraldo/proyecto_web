@@ -110,3 +110,22 @@
     }
 }
 
+.aprobado_span {
+    color: green;
+}
+
+.rechazado_span{
+    color: red;
+}
+
+.pendiente_span {
+    color: orange;
+}
+
+.caducado_span {
+    color: grey;
+}
+
+.terminado_span {
+    color: rgb(38, 0, 255);
+}

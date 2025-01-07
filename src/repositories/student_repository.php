@@ -396,6 +396,79 @@
             }
         }
 
+        /**
+         * Encontrar todas las solicitudes con un casillero asignado.
+         * @param string $periodo Periodo de la solicitud.
+         * @throws \Exception Si ocurre un error al buscar la solicitud.
+         * @return RequestModel[] Arreglo de solicitudes.
+         */
+        public function get_all_active_request_by_periodo(string $periodo): array {
+            try {
+                $stmt = $this->connection->prepare(
+                    'SELECT * FROM Requests WHERE periodo = :periodo AND (status=1 OR status=2) ;'
+                );
+                $stmt->execute([
+                    'periodo' => $periodo
+                ]);
+                $results = $stmt->fetchAll();
+                $requests = [];
+                foreach($results as $result){
+                    $requests[] = new RequestModel(
+                        $result['id'],
+                        $result['casillero'],
+                        $result['status'],
+                        new DateTime($result['created_at']),
+                        new DateTime($result['updated_at']),
+                        $result['is_acepted'],
+                        $result['url_payment_document'],
+                        $result['periodo'],
+                        new DateTime($result['until_at']),
+                        $result['url_acuse'],
+                        $result['user_id'],
+                    );
+                }
+                return $requests;
+            } catch (PDOException $e) {
+                throw new Exception("Error al obtener las solicitudes". $e->getMessage());
+            }
+        }
+
+        /**
+         * Encontrar todas las solicitudes pendientes.
+         * @param string $periodo Periodo de la solicitud.
+         * @throws \Exception Si ocurre un error al buscar la solicitud.
+         * @return RequestModel[] Arreglo de solicitudes.
+         */
+        public function get_all_pending_reques_by_periodo(string $periodo): array {
+            try {
+                $stmt = $this->connection->prepare(
+                    "SELECT * FROM Requests WHERE periodo = :periodo AND status = 0 ORDER BY created_at;"
+                    );
+                $stmt->execute([
+                    'periodo' => $periodo
+                    ]);
+                $results = $stmt->fetchAll();
+                $requests = [];
+                foreach($results as $result){
+                    $requests[] = new RequestModel(
+                        $result['id'],
+                        $result['casillero'],
+                        $result['status'],
+                        new DateTime($result['created_at']),
+                        new DateTime($result['updated_at']),
+                        $result['is_acepted'],
+                        $result['url_payment_document'],
+                        $result['periodo'],
+                        new DateTime($result['until_at']),
+                        $result['url_acuse'],
+                        $result['user_id'],
+                    );
+                }
+                return $requests;
+            }catch (PDOException $e) {
+                throw new Exception("Error al obtener las solicitudes". $e->getMessage());
+            }
+        }        
     }
 
 ?>

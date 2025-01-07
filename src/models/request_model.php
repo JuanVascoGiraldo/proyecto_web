@@ -14,13 +14,16 @@
         private string $periodo;
         private string $url_acuse;
 
+        private string $user_id;
+
         private DateTime $until_at;
 
         public function __construct(
             string $id, int $casillero, int $status,
             DateTime $created_at, DateTime $updated_at,
             int $is_acepted, string $url_payment_document,
-            string $periodo, DateTime $until_at = null, string $url_acuse = ""
+            string $periodo, DateTime $until_at = null, string $url_acuse = "",
+            string $user_id = ""
         ){
             $this->id = $id;
             $this->casillero = $casillero;
@@ -32,6 +35,7 @@
             $this->periodo = $periodo;
             $this->until_at = $until_at;
             $this->url_acuse = $url_acuse;
+            $this->user_id = $user_id;
         }
 
         public function getId(): string{
@@ -127,6 +131,35 @@
             $this->url_acuse = $url_acuse;
         }
 
+        public function isDelayed(): bool{
+            if($this->getStatus() == 1 && $this->getUntilAt() < getCurrentUTC()){
+                return true;
+            }
+            return false;
+        }
+
+        public function get_user_id(): string{
+            return $this->user_id;
+        }
+
+        public function set_user_id(string $user_id): void{
+            $this->user_id = $user_id;
+        }
+
+        public function toArrayAdmin(): array{
+            return [
+                "id" => $this->getId(),
+                "casillero" => $this->getCasillero(),
+                "status" => $this->getStatus(),
+                "created_at" => $this->getCreatedAt()->format('Y-m-d H:i:s'),
+                "updated_at" => $this->getUpdatedAt()->format('Y-m-d H:i:s'),
+                "is_acepted" => $this->getIsAcepted(),
+                "url_payment_document" => $this->getUrlPaymentDocument(),
+                "periodo" => $this->getPeriodo(),
+                "until_at" => $this->getUntilAt()->format('Y-m-d H:i:s'),
+                "is_delayed" => $this->isDelayed()
+            ];
+        }
 
     }
 ?>

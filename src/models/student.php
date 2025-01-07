@@ -109,6 +109,10 @@
             $this->horario_url = $horario_url;
         }
 
+        /**
+         * Devuelve el arreglo de solicitudes.
+         * @return RequestModel[] Arreglo de solicitudes.
+         */
         public function get_requests(): array{
             return $this->requests;
         }
