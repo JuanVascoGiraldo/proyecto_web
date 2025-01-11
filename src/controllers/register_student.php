@@ -165,7 +165,7 @@
                 $verification_repository->update_attemps($verification);
             }
             $res = new Response_model(
-                'Codigo de verificación inválido',
+                'Código de verificación inválido',
                 4,
                 false
             );

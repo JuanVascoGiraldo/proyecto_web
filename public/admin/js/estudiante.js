@@ -190,7 +190,7 @@ function editar_estudiante(){
 function validar_primernombre_update(){
     const primer_nombre = document.getElementById('primer_nombre_update');
     if (primer_nombre.value.length==0 || !regex_names_without_spaces.test(primer_nombre.value)) {
-        monstrar_mensaje_campo_incopleto(primer_nombre, "El Primer nombre", "Recuerda que solo admite letras, no espacios si tienes mas nombres colocalos en el campo de segundo nombre");
+        monstrar_mensaje_campo_incopleto(primer_nombre, "El Primer nombre", "Recuerda que solo admite letras, no espacios si tienes mas nombres colócalos en el campo de segundo nombre");
         return false;
     }
     return true;
@@ -230,7 +230,7 @@ function validar_num_locker_update(){
 function validar_primer_apellido_update(){
     const primer_apellido = document.getElementById('primer_apellido_update');
     if (primer_apellido.value.length==0 || !regex_names_without_spaces.test(primer_apellido.value)) {
-        monstrar_mensaje_campo_incopleto(primer_apellido, "El Primer apellido", "Recuerda que solo admite letras, no espacios si tienes mas apellidos colocalos en el campo de segundo apellido");
+        monstrar_mensaje_campo_incopleto(primer_apellido, "El Primer apellido", "Recuerda que solo admite letras, no espacios si tienes mas apellidos colócalos en el campo de segundo apellido");
         return false;
     }
     return true;

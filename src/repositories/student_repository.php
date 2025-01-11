@@ -54,7 +54,7 @@
         /**
          * Encontrar al estudiante por el id del usuario
          * @param string $user_id id del usuario
-         * @throws \Exception Si curre una excepcion al buscar al estudiante o al mapearlo.
+         * @throws \Exception Si curre una excepción al buscar al estudiante o al mapearlo.
          * @return Student|null Instancia de estudiante o nulo
          */
         public function find_student_by_user_id(string $user_id): Student|null{
@@ -87,7 +87,7 @@
         /**
          * Encontrar al estudiante por su boleta
          * @param string $boleta Boleta del estudiante
-         * @throws \Exception Si ocurre una excepcion al buscar al estudiante o al mapearlo.
+         * @throws \Exception Si ocurre una excepción al buscar al estudiante o al mapearlo.
          * @return Student|null Instancia de estudiante o nulo
          */
         public function find_student_by_boleta(string $boleta): Student|null{
@@ -113,7 +113,7 @@
                 return null;
 
             }catch (PDOException $e) {
-                throw new Exception("Excepcion al buscar el estudiante: ". $e->getMessage());
+                throw new Exception("excepción al buscar el estudiante: ". $e->getMessage());
             }
         }
 
@@ -121,7 +121,7 @@
         /**
          * Encontrar al estudiante por su CURP
          * @param string $curp CURP del estudiante
-         * @throws \Exception Si ocurre una excepcion al buscar al estudiante o al mapearlo.
+         * @throws \Exception Si ocurre una excepción al buscar al estudiante o al mapearlo.
          * @return Student|null Instancia de estudiante o nulo
          */
         public function find_student_by_curp(string $curp): Student|null{
@@ -146,7 +146,7 @@
                 }
                 return null;
             }catch (PDOException $e) {
-                throw new Exception('Excepcion al buscar el estudiante'. $e->getMessage());
+                throw new Exception('excepción al buscar el estudiante'. $e->getMessage());
             }
         }
     

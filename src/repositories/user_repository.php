@@ -180,7 +180,7 @@ class UserRepository {
             }
             return true;
         }catch (PDOException $e) {
-            throw new Exception("Error al actualizar las sessiones". $e->getMessage());
+            throw new Exception("Error al actualizar las sesiones". $e->getMessage());
         }
     }
 
@@ -310,7 +310,7 @@ class UserRepository {
     }
 
     /**
-     * Elimina todas las sesiónes de un usuario.
+     * Elimina todas las sesiones de un usuario.
      * @param string $id ID del usuario.
      * @throws \Exception Si ocurre un error al eliminar la sesión.
      * @return bool Verdadero si se elimina correctamente.
