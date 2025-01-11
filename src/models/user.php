@@ -94,6 +94,10 @@
             return $this->sessions;
         }
 
+        public function setCreateAt(DateTime $createdAt): void {
+            $this->createdAt = $createdAt;
+        }
+
         public function set_sessions(array $sessions): void {
             $this->sessions = $sessions;
         }
@@ -157,6 +161,7 @@
                 'horario'=> $this->student->getHorario_url(),
                 'casillero'=> $this->student->get_requests()[0]->getCasillero() == 0? "---": $this->student->get_requests()[0]->getCasillero(),
                 'estado_solicitud'=> $this->student->get_requests()[0]->isDelayed()? "4": $this->student->get_requests()[0]->getStatus(),
+                "hora_solicitud"=> $this->student->get_requests()[0]->getCreatedAt()->format('Y-m-d H:i:s'),
                 'periodo'=> $this->student->get_requests()[0]->getPeriodo(),
                 'complete_name'=> $complete_name
             ];

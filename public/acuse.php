@@ -68,7 +68,7 @@
                 <h2 class="mb-3">Inicia Sesión</h2>
                 <div class="form-floating">
                     <input type="number" class="form-control" id="boleta" name="boleta" placeholder="Ingresa tu Boleta">
-                    <label for="curp">Boleta</label>
+                    <label for="boleta">Boleta</label>
                 </div>
                 <br>
                 <div class="form-floating">
@@ -86,7 +86,8 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
                     <h5>Acerca del Proyecto</h5>
-                    <p>Este sistema de gestión de casilleros está diseñado para mejorar la experiencia de los estudiantes en la ESCOM, facilitando la gestión de los casilleros en la universidad. Este proyecto se realizo para la materia de Tecnologias para el desarrollo web</p>
+                    <p>Este sistema de gestión de casilleros está diseñado para mejorar la experiencia de los estudiantes en la ESCOM, facilitando la gestión de los casilleros en la universidad. Este proyecto se realizo para la materia de Tecnologías
+ para el desarrollo web</p>
                     <p>Desarrollado por: El equipo de SIGCA </p>
                 </div>
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0">

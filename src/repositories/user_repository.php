@@ -210,7 +210,7 @@ class UserRepository {
     public function get_all_students(): array {
         try {
             $stmt = $this->connection->prepare(
-                "SELECT * FROM Users WHERE role = 2"
+                "SELECT * FROM Users WHERE role = 2 ORDER BY created_at ASC"
             );
             $stmt->execute();
             $result = $stmt->fetchAll();
@@ -242,7 +242,7 @@ class UserRepository {
     public function update_user(User $user): bool {
         try {
             $stmt = $this->connection->prepare(
-                "UPDATE Users SET username = :username, email = :email, role = :role, status = :status, updated_at = :updated_at WHERE id = :id"
+                "UPDATE Users SET username = :username, email = :email, role = :role, status = :status, updated_at = :updated_at, created_at = :created_at WHERE id = :id"
             );
             return $stmt->execute([
                 "username" => $user->getUsername(),
@@ -250,6 +250,7 @@ class UserRepository {
                 "role"=> $user->getRole(),
                 "status"=> $user->getStatus(),
                 "updated_at"=> getCurrentUTC()->format("Y-m-d H:i:s"),
+                "created_at"=> $user->getCreatedAt()->format("Y-m-d H:i:s"),
                 "id"=> $user->getId()
             ]);
         } catch (PDOException $e) {

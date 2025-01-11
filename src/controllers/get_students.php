@@ -53,7 +53,7 @@
         echo json_encode($res->toArray());
     }else{
         $response = new Response_model(
-            "Metodo no permitido",
+            "method no permitido",
             "1",
             false
         );

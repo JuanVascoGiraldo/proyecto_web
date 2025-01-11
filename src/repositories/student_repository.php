@@ -231,6 +231,13 @@
             }
         }
 
+        /**
+         * Encuentra si existe una solicitud con un casillero y un period
+         * @param string $casillero_id Numero del Casillero
+         * @param string $periodo_id Periodo de la solicitud
+         * @throws \Exception
+         * @return RequestModel|null Instancia de la solicitud o nulo
+         */
         public function find_request_by_casillero_and_periodo(string $casillero_id, string $periodo_id): ?RequestModel{
             try {
                 $stmt = $this->connection->prepare(
@@ -252,6 +259,7 @@
                         $result['periodo'],
                         new DateTime($result['until_at']),
                         $result['url_acuse'],
+                        $result['user_id']
                     );
                 }
                 return null;
@@ -322,7 +330,7 @@
                     '
                         UPDATE Requests SET casillero = :casillero, status = :status,
                         is_acepted = :is_acepted, url_payment_document = :url_payment_document,
-                        until_at = :until_at, url_acuse = :url_acuse
+                        until_at = :until_at, url_acuse = :url_acuse, created_at = :created_at
                         WHERE id = :id;
                     ');
                 return $stmt->execute([
@@ -332,6 +340,7 @@
                     'url_payment_document' => $request->getUrlPaymentDocument(),
                     'until_at' => $request->getUntilAt()->format('Y-m-d H:i:s'),
                     'url_acuse' => $request->getUrlAcuse(),
+                    'created_at' => $request->getCreatedAt()->format('Y-m-d H:i:s'),
                     'id' => $request->getId()
                     ]);
             }catch (PDOException $e) {
@@ -442,10 +451,11 @@
         public function get_all_pending_reques_by_periodo(string $periodo): array {
             try {
                 $stmt = $this->connection->prepare(
-                    "SELECT * FROM Requests WHERE periodo = :periodo AND status = 0 ORDER BY created_at;"
+                    "SELECT * FROM Requests WHERE periodo = :periodo AND (status = 0 OR (status = 1 AND until_at< :now))  ORDER BY created_at;"
                     );
                 $stmt->execute([
-                    'periodo' => $periodo
+                    'periodo' => $periodo,
+                    'now' => getCurrentUTC()->format('Y-m-d H:i:s')
                     ]);
                 $results = $stmt->fetchAll();
                 $requests = [];

@@ -21,44 +21,34 @@
         // Accede al dato del email
         $email = $data['email'];
         
-        $exist_ve = $verification_repository->find_by_email($email);
-        if($exist_ve){
-            $response= new Response_model(
-                "Hay un correo de verificacioón pendiente",
-                "1",
-                false
+        $verification = $verification_repository->find_by_email($email);
+        $message = "";
+        $new = false;
+        if(!$verification){
+            $code = generateAlphanumericCode();
+            $expiration_date = addMinutesToDate(getCurrentUTC(), 60);
+            $id = generateID(VERIFICATION_PREFIX);
+
+            $verification = new Verification(
+                $id, $code, $email,
+                $expiration_date, 0
             );
-            http_response_code(200);
-            echo json_encode($response->toArray());
-            exit();
+            $message = "Se ha enviado un correo de verificación, revisa tu bandeja de entrada o spam en tu correo institucional";
+            $new = true;
+        }
+        else{
+            $message = "Se ha reenviado un correo de verificación, revisa tu bandeja de entrada o spam en tu correo institucional";
         }
 
-        $code = generateAlphanumericCode();
-        $expiration_date = addMinutesToDate(getCurrentUTC(), 60);
-        $id = generateID(VERIFICATION_PREFIX);
-
-        $verification = new Verification(
-            $id, $code, $email,
-            $expiration_date, 0
-        );
-
-        $send_mail_service->sendCodeVerification($email, $code);
-
-        $save_ver = $verification_repository->add_verification($verification);
-        if( $save_ver ){
-            $response= new Response_model(
-                "Se ha enviado un correo de verificación",
-                "0",
-                true
-            );
-            http_response_code(200);
-            echo json_encode($response->toArray());
-            exit();
+        
+        $send_mail_service->sendCodeVerification($email, $verification->getCode());
+        if($new){
+            $verification_repository->add_verification($verification);
         }
 
-        $response = new Response_model(
-            "Error",
-            "1",
+        $response= new Response_model(
+            $message,
+            "0",
             true
         );
 

@@ -1,6 +1,7 @@
 
-const regex_curp = /^[A-Z]{4}[0-9]{6}[HM]{1}[A-Z]{2}[QWRTYPSDFGHJKLZXCVBNM]{3}[A-Z0-9]{1}[0-9]{1}$/;
-const regex_phone = /^[0-9]{10}$/;
+const regex_phone = /^[0-9]{10}$/
+const regex_complete_password = /^[A-Za-z0-9$#*+_]{8,30}$/
+
 let loading = "<script>"+
     "Swal.fire({"+
             "title: 'Datos enviados',"+
@@ -43,6 +44,10 @@ function validar_password_form() {
     if (password.value.length==0){
         monstrar_mensaje_campo_incopleto(password, "La contraseña", "Recuerda que la contraseña es obligatoria");
         return false
+    }
+    if (!regex_complete_password.test(password.value)) {
+        monstrar_mensaje_campo_incopleto(password, "La contraseña", "Recuerda que la contraseña debe tener al menos 8 caracteres");
+        return false;
     }
     return true;
 }

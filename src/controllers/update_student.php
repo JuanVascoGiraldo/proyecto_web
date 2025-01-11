@@ -126,8 +126,9 @@
         }
         $locker = $locker == "" ? "NA" : $locker;
         //VERIFICAR SI EL CASILLERO YA ESTA ASIGNADO
+        $exist = $student_repository->find_request_by_casillero_and_periodo($locker, DEFAULT_PERIODO);
         if( $locker != "NA" && $user->get_student()->get_requests()[0]-> getCasillero() != $locker &&
-            $student_repository->find_request_by_casillero_and_periodo($locker, DEFAULT_PERIODO)
+            $exist != null && !$exist->isDelayed()
         ){
             $res = new Response_model(
                 "El casillero ya está asignado, si no es así, contacte a soporte",
@@ -157,6 +158,11 @@
             unlink($uploadDir . $horariofileName);
             $horariofileName = save_file($_FILES['horario_update'], $uploadDir);
         }
+        if($exist){
+            $exist->set_status(0);
+            $exist->set_casillero(0);
+            $student_repository->update_request($exist);
+        }
 
         
         $user -> setEmail($email);
@@ -185,7 +191,7 @@
         }
         if($request_actualizada->getCasillero() != 0 && $locker == "NA"){
             $request_actualizada->set_status(0);
-            $request_actualizada->setUntilAt(addMinutesToDate(getCurrentUTC(), 2880));
+            $request_actualizada->setUntilAt(until: addMinutesToDate(getCurrentUTC(), 2880));
         }
         $locker = (int)$locker;
         $request_actualizada->set_casillero($locker);

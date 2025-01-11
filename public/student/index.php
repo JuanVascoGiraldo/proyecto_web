@@ -57,7 +57,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio Administrador</title>
+    <title>Inicio Estudiante</title>
     <link rel="icon" href="../imgs/iconoprincipal.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/main.css">
@@ -118,7 +118,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Dia solicitado: <?php echo $ultimate_request->getCreatedAt()->format("Y-m-d H:i:s") ; ?></li>
                         <li class="list-group-item">Casillero Asignado: <?php echo $ultimate_request->getCasillero() == 0 ? "---": $ultimate_request->getCasillero();?> </li>
-                        <li class="list-group-item">Perido Escolar: <?php echo $ultimate_request->getPeriodo() ?></li>
+                        <li class="list-group-item">Periodo Escolar: <?php echo $ultimate_request->getPeriodo() ?></li>
                     </ul>
                     <div class="card-body">
                         <?php
@@ -154,14 +154,58 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="infoModalLabel">Acuerdo de Responsabilidades en el uso del casillero</h5>
+                        <h4 class="modal-title" id="infoModalLabel">ACUERDO DE RESPONSABILIDADES EN EL USO DEL CASILLERO 2025</h4>
                     </div>
                     <div class="modal-body">
                         <form>
                             <!--Mostrar pdf-->
                             <div>
-                                <iframe id="pdf" src="./pdf/conformidadUsoLocker_25_1.pdf" style="width: 100%; height: 500px;"></iframe>
+                                <h5 class="text-center">SUBDIRECCIÓN ADMINISTRATIVA</h5>
+                                <h5 class="text-center">COMITÉ DE PROCURACIÓN DE FONDOS</h5>
+                                <br>
+                                <p>
+                                    Se autoriza que utilices el casillero señalado durante el ciclo escolar <span style="font-weight: bold; text-decoration: underline;">agosto 2024 - febrero 2025</span>,
+                                    dentro de la Campaña de Procuración de Fondos.
+                                </p>
+                                <p>
+                                    La utilización de este servicio deberá realizarse de forma adecuada y manteniendo la imagen de
+                                    orden y limpieza del plantel, por lo que por ningún motivo podrás:
+                                </p>
+                                <ul>
+                                    <li>Compartir o traspasar el uso del casillero de manera directa.</li>
+                                    <li>Almacenar cualquier tipo de productos para comercialización.</li>
+                                    <li>Pintar o señalar el casillero.</li>
+                                    <li>Colocar calcomanías o distintivos.</li>
+                                    <li>
+                                    Abrir el casillero por extravío de llaves sin antes reportarlo a la Subdirección Administrativa.
+                                    </li>
+                                    <li>
+                                    Tener alimentos o bebidas que generen algún tipo de derramamiento o plaga.
+                                    </li>
+                                    <li>Guardar bebidas alcohólicas o sustancias prohibidas.</li>
+                                </ul>
+                                <p>
+                                    Cualquier incumplimiento de los puntos señalados será motivo de la suspensión inmediata del
+                                    servicio y, en caso de gravedad de la falta, podrá ser turnado a la Comisión de Honor del Consejo
+                                    Técnico Consultivo Escolar.
+                                </p>
+                                <p>
+                                    El uso del casillero será para resguardar material bibliográfico, académico, de laboratorio, deportivo,
+                                    cultural y lo relacionado con tu actividad como estudiante dentro de la escuela.
+                                </p>
+                                <p>No debes guardar en el interior objetos considerados de alto valor:</p>
+                                <ul>
+                                    <li>Laptops</li>
+                                    <li>Tablets</li>
+                                    <li>Alhajas</li>
+                                    <li>Dinero en efectivo</li>
+                                    <li>Cámaras fotográficas, etc.</li>
+                                </ul>
+                                <p>
+                                    Lo anterior debido a que no se puede garantizar totalmente la seguridad de estos.
+                                </p>
                             </div>
+
                             <div>
                                 <label for="aceptar">Estoy Conforme Para el Uso de Locker</label>
                                 <input type="checkbox" id="aceptar" name="aceptar" value="aceptar">
@@ -235,7 +279,8 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
                     <h5>Acerca del Proyecto</h5>
-                    <p>Este sistema de gestión de casilleros está diseñado para mejorar la experiencia de los estudiantes en la ESCOM, facilitando la gestión de los casilleros en la universidad. Este proyecto se realizo para la materia de Tecnologias para el desarrollo web</p>
+                    <p>Este sistema de gestión de casilleros está diseñado para mejorar la experiencia de los estudiantes en la ESCOM, facilitando la gestión de los casilleros en la universidad. Este proyecto se realizo para la materia de Tecnologías
+ para el desarrollo web</p>
                     <p>Desarrollado por: El equipo de SIGCA </p>
                 </div>
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0">

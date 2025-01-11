@@ -112,47 +112,72 @@ function showPage(pageNumber) {
 }
 
 // Mostrar la primera página al cargar
+function answer_is_force(casillero) {
+    if(casillero > 50){
+        return asignar_casillero(casillero, 1);
+    }
+    Swal.fire({
+        title: '¿Quieres asignarlo?',
+        text: "¿Quieres asignar el casillero aunque la persona mida menos de 1.60?",
+        icon: 'warning',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si Asignar',
+        cancelButtonText: 'Cancelar',
+        denyButtonText: 'No Asignar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            asignar_casillero(casillero, 1);
+        }
+        if (result.isDenied) {
+            asignar_casillero(casillero, 0);
+        }
+    });
+}
 
-function asignar_casillero(casillero){
+function asignar_casillero(casillero, force){
     const url = 'http://localhost/Proyecto_Final/src/controllers/asign_locker.php';
-            let formData = new FormData();
-            formData.append('locker', casillero);
-            $("#loader").html(loading2);
-            $.ajax({
-                url: url,
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: (response) => {
-                    if(!response.success){
-                        $("#loader").html("");
-                        Swal.fire({
-                            icon: "error",
-                            title: "No se pudo enviar la información",
-                            text: response.message
-                        });
-                    }else{
-                            location.reload();
-                    }
-                },
-                error: () => {
-                    $("#loader").html("");
-                    Swal.fire({
-                        icon: "error",
-                        title: "No se pudo enviar la información",
-                        text: "Inténtalo de nuevo o contacta a soporte",
-                    });
-                }
+    let formData = new FormData();
+    formData.append('locker', casillero);
+    formData.append('force', force);
+    $("#loader").html(loading2);
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: (response) => {
+            if(!response.success){
+                $("#loader").html("");
+                Swal.fire({
+                    icon: "error",
+                    title: "No se pudo enviar la información",
+                    text: response.message
+                });
+            }else{
+                    location.reload();
+            }
+        },
+        error: () => {
+            $("#loader").html("");
+            Swal.fire({
+                icon: "error",
+                title: "No se pudo enviar la información",
+                text: "Inténtalo de nuevo o contacta a soporte",
             });
+        }
+    });
 }
 
 function mostar(i) {
     document.getElementById('infoModalLabel').innerHTML = `Informacion del Casillero ${i}`;
     const button_a = document.getElementById('button_asignar');
-    if (!lockers_BD[i]) {
+    if (!lockers_BD[i] ) {
         button_a.style.display = 'block';
-        button_a.onclick = asignar_casillero.bind(null, i);
+        button_a.onclick = answer_is_force.bind(null, i);
         document.getElementById('casillero').innerHTML =`
             <p>Estado: Disponible</p>
             <p>Fecha de vencimiento: N/A</p>
@@ -161,7 +186,14 @@ function mostar(i) {
         `
         return;
     }
-    button_a.style.display = 'none';
+    if(lockers_BD[i].is_delayed){
+        button_a.style.display = 'block';
+        button_a.onclick =answer_is_force.bind(null, i);
+    }else{
+        button_a.style.display = 'none';
+    }
+
+
     let locker_BD = lockers_BD[i];
     document.getElementById('casillero').innerHTML =`
         <p>Estado: ${locker_BD.is_delayed ? estado["4"] : estado[locker_BD.status.toString()]}</p>

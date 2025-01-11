@@ -41,9 +41,10 @@
         $email_service = new SendMailService();
 
         $locker = $_POST['locker'] ?? null;
-        if ($locker === null) {
+        $force = $_POST['force'] ?? null;
+        if ($locker === null || $force === null) {
             $res = new Response_model(
-                'No se ha proporcionado el locker',
+                'No se ha proporcionado el casillero',
                 3,
                 false
             );
@@ -52,8 +53,9 @@
             exit();
         }
 
+        $exist = $student_repository->find_request_by_casillero_and_periodo($locker, DEFAULT_PERIODO);
         if(
-            $student_repository->find_request_by_casillero_and_periodo($locker, DEFAULT_PERIODO)
+            $exist !== null && !$exist->isDelayed()
         ){
             $res = new Response_model(
                 "El casillero ya está asignado, si no es así, contacte a soporte",
@@ -77,6 +79,7 @@
             exit();
         }
         $locker = (int) $locker;
+        $force = (int) $force;
         $asign_request = null;
         foreach ($requests as $request) {
             $student = $student_repository->find_student_by_user_id($request->get_user_id());
@@ -90,6 +93,9 @@
                 echo json_encode($res->toArray(),JSON_UNESCAPED_UNICODE);
                 exit();
             }
+            if($exist && $exist->get_user_id() === $request->get_user_id()){
+                continue;
+            }
             if($locker <= 50 && $student->getHeight() <= 160){
                 $asign_request = $request;
                 break;
@@ -100,10 +106,33 @@
                 break;
             }
         }
-        if($asign_request === null){
+        if($asign_request === null && $force === 1 && $locker < 51){
             $asign_request = $requests[0];
+            if($exist && $asign_request->get_user_id() === $exist->get_user_id()){
+                if(count($requests) > 1){
+                    $asign_request = $requests[1];
+                }
+            }
         }
-
+        if($asign_request === null){
+            $res = new Response_model(
+                "No hay solicitudes que cumplan con los requisitos para el casillero (menores a 1.60 m)",
+                3,
+                false
+            );
+            http_response_code(200);
+            echo json_encode($res->toArray(),JSON_UNESCAPED_UNICODE);
+            exit();
+        }
+        if($exist){
+            $exist->set_casillero(0);
+            $exist->set_status(0);
+            $exist->setCreatedAt(getCurrentUTC());
+            $student_repository->update_request($exist);
+            $user_exist = $user_repository->findByID($exist->get_user_id());
+            $user_exist->setCreateAt(getCurrentUTC());
+            $user_repository->update_user($user_exist);
+        }
         $asign_request->set_casillero($locker);
         $asign_request->set_status(1);
         $asign_request->setUntilAt(addMinutesToDate(getCurrentUTC(), 1440));
@@ -115,7 +144,10 @@
         $res = new Response_model(
             "Casillero asignado",
             2,
-            true
+            true,
+            [
+                "user_id" => $asign_request->get_user_id(),
+            ]
         );
         http_response_code(200);
         echo json_encode($res->toArray(),JSON_UNESCAPED_UNICODE);

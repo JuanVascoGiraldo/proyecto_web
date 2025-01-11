@@ -136,7 +136,7 @@ function monstrar_mensaje_campo_incopleto(campo, nombre, texto) {
 function validar_primernombre(){
     const primer_nombre = document.getElementById('primer_nombre');
     if (primer_nombre.value.length==0 || !regex_names_without_spaces.test(primer_nombre.value)) {
-        monstrar_mensaje_campo_incopleto(primer_nombre, "El Primer nombre", "Recuerda que solo admite letras, no espacios si tienes mas nombres colocalos en el campo de segundo nombre");
+        monstrar_mensaje_campo_incopleto(primer_nombre, "El Primer nombre", "Recuerda que solo admite letras, no espacios, pero si tienes más nombres ingresalos en el campo de segundo nombre");
         return false;
     }
     return true;
@@ -159,12 +159,12 @@ function validar_segundonombre(){
 function validar_num_locker(){
     const num_locker = document.getElementById('numeroLocker');
     if (num_locker.value.length==0 || !regex_num_locker.test(num_locker.value)) {
-        monstrar_mensaje_campo_incopleto(num_locker, "El Número de locker", "Recuerda que solo admite entre 1 y 3 números");
+        monstrar_mensaje_campo_incopleto(num_locker, "El Número de Casillero", "Recuerda que solo admite entre 1 y 3 números");
         return false;
     }
     const value = parseInt(num_locker.value);
     if (value < 1 || value > 100) {
-        monstrar_mensaje_campo_incopleto(num_locker, "El Número de locker", "Recuerda que el número de locker debe estar entre 1 y 999");
+        monstrar_mensaje_campo_incopleto(num_locker, "El Número de Casillero", "Recuerda que el número de Casillero debe estar entre 1 y 999");
         return false;
     }
     return true;
@@ -173,7 +173,7 @@ function validar_num_locker(){
 function validar_primer_apellido(){
     const primer_apellido = document.getElementById('primer_apellido');
     if (primer_apellido.value.length==0 || !regex_names_without_spaces.test(primer_apellido.value)) {
-        monstrar_mensaje_campo_incopleto(primer_apellido, "El Primer apellido", "Recuerda que solo admite letras, no espacios si tienes mas apellidos colocalos en el campo de segundo apellido");
+        monstrar_mensaje_campo_incopleto(primer_apellido, "El Primer apellido", "Recuerda que solo admite letras, no espacios, pero si tienes más apellidos ingresalos en el campo de segundo apellido");
         return false;
     }
     return true;
@@ -276,7 +276,7 @@ function validar_password_form() {
     }
 
     if(!regex_complete_password.test(password.value)){
-        monstrar_mensaje_campo_incopleto(password, "La Contraseña", "Recuerda que la contraseña debe tener al menos 8 caracteres, maximo 30, una mayúscula, una minúscula y un número");
+        monstrar_mensaje_campo_incopleto(password, "La Contraseña", "Recuerda que la contraseña debe tener al menos 8 caracteres, máximo 30, una mayúscula, una minúscula y un número");
         return false;
     }
     return true;
@@ -480,7 +480,7 @@ $(document).ready(function() {
                     Swal.fire({
                         icon: "success",
                         title: "Código de verificación enviado",
-                        text: "Se ha enviado un código de verificación a tu correo institucional",
+                        text: data.message,
                     });
                 }
                 

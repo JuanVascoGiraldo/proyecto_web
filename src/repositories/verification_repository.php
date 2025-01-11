@@ -66,7 +66,7 @@
         }
 
         /**
-         * encontrar una verificación por el email.
+         * encontrar una verificación por el email, ademas que la fecha de expiración sea mayor a la fecha actual y los intentos sea menor a tres.
          * @param string $email Email a buscar.
          * @throws \Exception Si ocurre un error al buscar la verificación.
          * @return Verification|null Instancia de verificación o nulo.

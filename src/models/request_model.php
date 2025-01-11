@@ -89,6 +89,11 @@
             $this->updated_at = getCurrentUTC();
         }
 
+        public function setCreatedAt(DateTime $created_at): void
+        {
+            $this->created_at = $created_at;
+        }
+
         public function set_is_acepted(int $is_acepted): void
         {
             $this->is_acepted = $is_acepted;

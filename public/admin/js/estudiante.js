@@ -62,7 +62,10 @@ function get_students() {
 get_students();
 
 function set_data_in_table(){
-    console.log(typeof personas);
+    // ordenar por hora de crecion
+    personas.sort((a, b) => {
+        return new Date(b.hora_solicitud) - new Date(a.hora_solicitud);
+    });
     let texto = personas.map((persona, index) => `
     <tr data-bs-toggle="modal" data-bs-target="#infoModal" onclick="mostrar(${index})">
     <td>${persona.boleta}</td>
