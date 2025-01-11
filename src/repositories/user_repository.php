@@ -171,7 +171,8 @@ class UserRepository {
         try{
             foreach ($user->get_sessions() as $session) {
                 $stmt = $this->connection->prepare(
-                    "UPDATE sessions SET expiration_date = :expiration_date WHERE id = :id");
+                    "UPDATE Sessions SET expiration_date = :expiration_date WHERE id = :id");
+                
                 $stmt->execute([
                     "expiration_date" => $session->getExpirationDate()->format("Y-m-d H:i:s"),
                     "id" => $session->getId()
@@ -255,6 +256,36 @@ class UserRepository {
             ]);
         } catch (PDOException $e) {
             throw new Exception("Error al actualizar el usuario: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Obtiene todas las sesiones activas de un usuario.
+     * @param string $user_id ID del usuario.
+     * @throws \Exception Si ocurre un error al buscar las sesiones.
+     * @return Session[] Lista de sesiones.
+     */
+    public function get_all_sessions_by_user_id(string $user_id): array {
+        try {
+            $stmt = $this->connection->prepare(
+                "SELECT * FROM Sessions WHERE user_id = :user_id and expiration_date > :expiration_date;"
+            );
+            $stmt->execute([
+                "user_id"=> $user_id,
+                "expiration_date"=> getCurrentUTC()->format("Y-m-d H:i:s")
+            ]);
+            $result = $stmt->fetchAll();
+            $sessions = [];
+            foreach ($result as $row) {
+                $sessions[] = new Session(
+                    id: $row["id"],
+                    created_at: new DateTime($row["created_at"]),
+                    expiration_date: new DateTime($row["expiration_date"])
+                );
+            }
+            return $sessions;
+        } catch (PDOException $e) {
+            throw new Exception("Error al buscar las sesiones". $e->getMessage());
         }
     }
 

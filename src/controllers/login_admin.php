@@ -53,7 +53,8 @@
         $new_session = new Session(
             generateID(SESSION_PREFIX), getCurrentUTC(), addMinutesToDate(getCurrentUTC(), 60)
         );
-
+        $other_session = $user_repository->get_all_sessions_by_user_id($user->getId());
+        $user->set_sessions($other_session);
         $user->add_Session($new_session);
         $user_repository->save_sessions($user, $new_session);
         $user_repository->update_all_user_sessions($user);
