@@ -80,6 +80,14 @@
                 <div class="alert alert-warning" role="alert">
                     <span style="font-weight: bold;">Nota:</span> Para ver más detalles de un estudiante o editarlo, haga clic en la fila estudiante.
                 </div>
+                <div style="width: 50%; margin: auto;">
+                    <label for="selectOption" class="form-label">Ordenar Por:</label>
+                    <select class="form-select" id="selectOption" aria-label="Ordenar Por" onchange="javascript:sorted_students(this.value)">
+                        <option value="1" select>Fecha de Creación</option>
+                        <option value="2" on>Altura</option>
+                    </select>
+                </div>
+                <br>
                 <table class="table table-bordered table-striped">
                     <thead class="table-primary">
                         <tr>

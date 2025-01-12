@@ -44,7 +44,7 @@ function get_students() {
                 });
             } else {
                 personas = response.data;
-                set_data_in_table();
+                sorted_students(1);
             }
         },
         error: () => {
@@ -59,13 +59,22 @@ function get_students() {
 }
 
 
+function sorted_students(sort_by_height){
+    if (sort_by_height==2) {
+        personas.sort((a, b) => {
+            return a.height - b.height;
+        });
+    }else{
+        personas.sort((a, b) => {
+            return new Date(b.hora_solicitud) - new Date(a.hora_solicitud);
+        });
+    }
+    set_data_in_table();
+}
+
 get_students();
 
 function set_data_in_table(){
-    // ordenar por hora de crecion
-    personas.sort((a, b) => {
-        return new Date(b.hora_solicitud) - new Date(a.hora_solicitud);
-    });
     let texto = personas.map((persona, index) => `
     <tr data-bs-toggle="modal" data-bs-target="#infoModal" onclick="mostrar(${index})">
     <td>${persona.boleta}</td>
