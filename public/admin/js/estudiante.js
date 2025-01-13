@@ -65,8 +65,9 @@ function sorted_students(sort_by_height){
             return a.height - b.height;
         });
     }else{
+        // sort by date of request de mayor a menor
         personas.sort((a, b) => {
-            return new Date(b.hora_solicitud) - new Date(a.hora_solicitud);
+            return new Date(a.hora_solicitud) - new Date(b.hora_solicitud);
         });
     }
     set_data_in_table();

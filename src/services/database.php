@@ -10,7 +10,7 @@
         public function __construct() {
             try {
                 $dsn = "mysql:host=127.0.0.1:3306;dbname=casilleros;charset=utf8mb4";
-                $this->connection = new PDO($dsn, "root", "03042021");
+                $this->connection = new PDO($dsn, "root", "");
                 $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             } catch (PDOException $e) {

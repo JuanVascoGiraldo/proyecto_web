@@ -73,6 +73,13 @@
             }
         }
 
+        /**
+         * Envía un correo de confirmación de pago.
+         * @param string $email Dirección de correo del destinatario.
+         * @param int $casillero Número de casillero.
+         * @throws \Exception Si no se puede enviar el correo.
+         * @return void
+         */
         public function sendCasilleroAsignado_email(string $email, int $casillero): void{
             $subject = "Asignación de Casillero y Procedimiento de Pago";
             $message = "
