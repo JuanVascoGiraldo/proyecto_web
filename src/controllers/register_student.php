@@ -227,7 +227,7 @@
         if($is_renovacion){
             $message = "Solicitud de renovación guardada correctamente, Ingresa en el sistema antes de 24 horas para completar el proceso";
         }else{
-            $message = "Solicitud guardada correctamente, Quedate al pendiente de tu correo para la asignación de casillero";
+            $message = "Solicitud guardada correctamente, vuelve luego de 48 y revisa tu correo para la asignación de casillero";
         }
 
         if($student_repository->how_request_by_periodo(DEFAULT_PERIODO) > MAX_REQUEST_BY_PERIOD){
