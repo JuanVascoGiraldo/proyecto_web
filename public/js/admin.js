@@ -74,7 +74,7 @@ $(document).ready(function() {
         e.preventDefault();
 
         let formData = new FormData(this);
-        const url = 'http://localhost/Proyecto_Final/src/controllers/login_admin.php';
+        const url = '../src/controllers/login_admin.php';
         $("#loader").value = loading;
         $.ajax({
             url: url,

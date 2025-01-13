@@ -245,7 +245,7 @@ $(document).ready(function() {
         e.preventDefault();
 
         let formData = new FormData(this);
-        const url = 'http://localhost/Proyecto_Final/src/controllers/register_student_admin.php';
+        const url = '../../src/controllers/register_student_admin.php';
         $("#loader").html(loading);
         $.ajax({
             url: url,

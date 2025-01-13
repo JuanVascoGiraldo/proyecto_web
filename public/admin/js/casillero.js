@@ -29,7 +29,7 @@ let loading2 = "<script>"+
 
 
 $(document).ready(function() {
-    const url = 'http://localhost/Proyecto_Final/src/controllers/get_all_lockers.php';
+    const url = '../../src/controllers/get_all_lockers.php';
     $("#loader").html(loading);
     $.ajax({
         url: url,
@@ -138,7 +138,7 @@ function answer_is_force(casillero) {
 }
 
 function asignar_casillero(casillero, force){
-    const url = 'http://localhost/Proyecto_Final/src/controllers/asign_locker.php';
+    const url = '../../src/controllers/asign_locker.php';
     let formData = new FormData();
     formData.append('locker', casillero);
     formData.append('force', force);

@@ -71,9 +71,9 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand d-flex" href="#">
-                    <img src="../imgs/ipn_logo.png" alt="logo Escom" title="logo ESCOM" class="d-inline-block"  onclick="location.href='https://www.ipn.mx';">
+                    <img src="../imgs/ipn_logo.png" alt="logo Escom" title="logo ESCOM" class="d-inline-block"  onclick="window.open('https://www.ipn.mx', '_blank');">
                     <span class="d-flex">&nbsp;&nbsp;Sistema de Gestión de Casilleros ESCOM (SIGCA)&nbsp;&nbsp;</span>
-                    <img src="../imgs/escom_logo.png" alt="logo Escom" title="logo ESCOM" class="d-inline-block"  onclick="location.href='https://www.escom.ipn.mx';">
+                    <img src="../imgs/escom_logo.png" alt="logo Escom" title="logo ESCOM" class="d-inline-block"  onclick="window.open('https://www.escom.ipn.mx', '_blank');">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -84,7 +84,7 @@
                             <a class="nav-link" onclick="location.reload()">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" onclick=" window.location.href = 'http://localhost/Proyecto_Final/src/controllers/logout.php';">Salir</a>
+                            <a class="nav-link" onclick=" window.location.href = '../../src/controllers/logout.php';">Salir</a>
                         </li>
                     </ul>
                 </div>
@@ -116,7 +116,7 @@
                         <p class="card-text"><?php echo $status; ?></p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Dia solicitado: <?php echo $ultimate_request->getCreatedAt()->format("Y-m-d H:i:s") ; ?></li>
+                        <li class="list-group-item">Día solicitado: <?php echo $ultimate_request->getCreatedAt()->format("Y-m-d H:i:s") ; ?></li>
                         <li class="list-group-item">Casillero Asignado: <?php echo $ultimate_request->getCasillero() == 0 ? "---": $ultimate_request->getCasillero();?> </li>
                         <li class="list-group-item">Periodo Escolar: <?php echo $ultimate_request->getPeriodo() ?></li>
                     </ul>
@@ -131,7 +131,7 @@
                         <?php
                             if($ultimate_request->getStatus() == 2){
                         ?>
-                                <a href="http://localhost/Proyecto_Final/src/acuses/<?php echo $ultimate_request->getUrlAcuse(); ?>" download="<?php echo $student->getBoleta()?>.pdf" class="btn btn-success">
+                                <a href="../../src/acuses/<?php echo $ultimate_request->getUrlAcuse(); ?>" download="<?php echo $student->getBoleta()?>.pdf" class="btn btn-success">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-download-fill" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M8 0a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 4.095 0 5.555 0 7.318 0 9.366 1.708 11 3.781 11H7.5V5.5a.5.5 0 0 1 1 0V11h4.188C14.502 11 16 9.57 16 7.773c0-1.636-1.242-2.969-2.834-3.194C12.923 1.999 10.69 0 8 0m-.354 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V11h-1v3.293l-2.146-2.147a.5.5 0 0 0-.708.708z"></path></svg>
                                     Descargar Acuse
@@ -280,7 +280,7 @@
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
                     <h5>Acerca del Proyecto</h5>
                     <p>Este sistema de gestión de casilleros está diseñado para mejorar la experiencia de los estudiantes en la ESCOM, facilitando la gestión de los casilleros en la universidad. Este proyecto se realizo para la materia de Tecnologías
- para el desarrollo web</p>
+ para el Tecnologías para el desarrollo de aplicaciones Web</p>
                     <p>Desarrollado por: El equipo de SIGCA </p>
                 </div>
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0">

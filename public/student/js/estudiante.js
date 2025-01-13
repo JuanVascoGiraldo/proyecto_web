@@ -24,7 +24,7 @@ function acept_term(id){
         return;
     }
 
-    const url = 'http://localhost/Proyecto_Final/src/controllers/acept_terms.php';
+    const url = '../../src/controllers/acept_terms.php';
     let formData = new FormData();
     formData.append('request_id', id);
     $("#loader").html(loading);
@@ -102,7 +102,7 @@ $(document).ready(function() {
         console.log("Enviando formulario");
         e.preventDefault();
         let formData = new FormData(this);
-        const url = 'http://localhost/Proyecto_Final/src/controllers/upload_comprobante.php';
+        const url = '../../src/controllers/upload_comprobante.php';
         $("#loader").html(loading);
         $.ajax({
             url: url,

@@ -26,7 +26,7 @@ let loading = "<script>"+
 let personas = [];
 
 function get_students() {
-    const url = 'http://localhost/Proyecto_Final/src/controllers/get_students.php';
+    const url = '../../src/controllers/get_students.php';
     document.getElementById('loader').innerHTML = loading;
     $.ajax({
         url: url,
@@ -145,7 +145,7 @@ document.getElementById('filterInput').addEventListener('input', function () {
 
 function open_archivo(name){
     console.log(name);
-    window.open(`http://localhost/Proyecto_Final/src/uploads/${name}`, '_blank');
+    window.open(`../../src/uploads/${name}`, '_blank');
 }
 
 // funcion paraenviar los datos al 
@@ -335,7 +335,7 @@ $(document).ready(function() {
         e.preventDefault();
 
         let formData = new FormData(this);
-        const url = 'http://localhost/Proyecto_Final/src/controllers/update_student.php';
+        const url = '../../src/controllers/update_student.php';
         $("#loader").html(loading);
         $.ajax({
             url: url,
@@ -388,7 +388,7 @@ function delete_user(){
         confirmButtonText: 'Sí, eliminarlo!'
     }).then((result) => {
         if (result.isConfirmed) {
-            const url = 'http://localhost/Proyecto_Final/src/controllers/delete_student.php';
+            const url = '../../src/controllers/delete_student.php';
             let formData = new FormData();
             formData.append('id', id);
             $("#loader").html(loading);

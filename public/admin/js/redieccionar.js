@@ -12,5 +12,5 @@ send_to_casillero = () => {
 }
 
 logout = () => {
-    window.location.href = "http://localhost/Proyecto_Final/src/controllers/logout.php";
+    window.location.href = "../../src/controllers/logout.php";
 }

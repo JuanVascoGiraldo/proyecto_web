@@ -456,7 +456,7 @@ function verify_captha() {
 $(document).ready(function() {
     // Envio del codigo de verificacion
     $('#send_verifcation_code').click(() => {
-        const endpointUrl = 'http://localhost/Proyecto_Final/src/controllers/send_mail.php';
+        const endpointUrl = '../src/controllers/send_mail.php';
         const params = {email: $('#correo').val()}
         const headers = {
             'Content-Type': 'application/json',
@@ -503,7 +503,7 @@ $(document).ready(function() {
         e.preventDefault();
 
         let formData = new FormData(this);
-        const url = 'http://localhost/Proyecto_Final/src/controllers/register_student.php';
+        const url = '../src/controllers/register_student.php';
         $('#loader').html(loading);
         $.ajax({
             url: url,
